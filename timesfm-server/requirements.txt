@@ -1,0 +1,8 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+numpy==1.26.4
+pydantic==2.7.4
+# TimesFM (CPU版)
+timesfm[cpu]==1.2.7
+# GPU版を使う場合は上を以下に置き換え:
+# timesfm[gpu]==1.2.7

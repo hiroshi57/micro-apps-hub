@@ -33,6 +33,9 @@ const APPS = [
   { id: 'color-palette',       title: 'カラーパレット Pro',       price: 580 },
   { id: 'noise',               title: '作業用BGM Pro',            price: 680 },
   { id: 'quote',               title: '名言ジェネレーター Pro',   price: 380 },
+  { id: 'color-test',          title: '色彩テスト Pro',           price: 480 },
+  { id: 'schedule',            title: '時間割メーカー Pro',       price: 580 },
+  { id: 'senior-brain',        title: 'シニア向け脳トレ Pro',    price: 680 },
 ];
 
 async function main() {

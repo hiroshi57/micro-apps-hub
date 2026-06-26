@@ -40,6 +40,32 @@ create policy "自分の購入記録のみ参照" on public.purchases
   for select using (auth.uid() = user_id);
 
 -- ============================================================
+-- 学習記録（Pro版 — localStorage の代わりにサーバー保存）
+-- ============================================================
+
+create table if not exists public.learning_records (
+  id          uuid default gen_random_uuid() primary key,
+  user_id     uuid references auth.users on delete cascade not null,
+  app_slug    text not null,
+  score       integer not null check (score between 0 and 100),
+  level       integer not null default 1,
+  duration    integer not null default 0,  -- 秒
+  correct     integer,
+  total       integer,
+  played_at   timestamptz default now()
+);
+
+create index if not exists learning_records_user_app_idx on public.learning_records(user_id, app_slug);
+create index if not exists learning_records_played_at_idx on public.learning_records(played_at desc);
+
+-- RLS: 本人のみ
+alter table public.learning_records enable row level security;
+create policy "自分の学習記録のみ参照" on public.learning_records
+  for select using (auth.uid() = user_id);
+create policy "自分の学習記録のみ挿入" on public.learning_records
+  for insert with check (auth.uid() = user_id);
+
+-- ============================================================
 -- Auth トリガー（ユーザー登録時に profiles を自動生成）
 -- ============================================================
 create or replace function public.handle_new_user()
