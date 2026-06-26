@@ -13,7 +13,15 @@ tasks:
       - 'use client' で Stripe Checkout セッションを /api/stripe/checkout に POST
       - ローディング状態・エラーハンドリング付き
       - デザイン: from-pro-600 to-pro-500 の gradient ボタン
-      - 各 Pro ページの <CheckoutButton appSlug="xxx" price={xxx} /> に差し替え
+      - 各 Pro ページの購入フォームを <CheckoutButton appSlug="xxx" price={xxx} /> に差し替え
+
+  - id: learning-dashboard
+    description: |
+      app/apps/page.tsx (または app/dashboard/page.tsx) に学習ダッシュボードを追加。
+      - 全アプリのスコア推移をグラフ表示（localStorage から取得）
+      - lib/learning.ts の getAllStats() を使用
+      - /api/predict を呼び出してスコア予測を表示（TimesFM 連携）
+      - シンプルなバーチャート（canvas または CSS bars）
 
   - id: schedule-pro-page
     description: |
@@ -24,7 +32,7 @@ tasks:
     description: |
       GitHub リポジトリを作成してプッシュせよ。
       - gh repo create micro-apps-hub --public --source=. --push
-      - README.md を追加（アプリ一覧・Vercel URL・技術スタック）
+      - README.md を追加（アプリ一覧・Vercel URL・技術スタック・TimesFM予測機能の説明）
 
   - id: final-deploy
     description: |

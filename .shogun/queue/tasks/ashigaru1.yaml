@@ -2,28 +2,45 @@ ashigaru: 1
 task_id: task-new-apps
 priority: high
 description: |
-  残り2本のアプリページを実装せよ。
+  残り2本のアプリページを実装し、学習機能も組み込め。
+
+  === 学習機能必須インポート ===
+  import { FlowEngine } from '@/lib/flow-engine';
+  import { FreemiumGate, GAME_FREEMIUM_CONFIGS } from '@/lib/freemium-gate';
+  import { ProWallModal, ScorePopup, FlowIndicator } from '@/app/components/ProWallModal';
+  import { recordGameResult } from '@/lib/learning';
+
+  上記を使い、各アプリに「徐々に難しくなって抜け出せない仕組み」を組み込む。
 
 tasks:
   - id: color-test
     file: app/apps/color-test/page.tsx
     spec: |
       「色彩テスト」アプリ。16色のパッチから微妙に違う色を1つ選ぶゲーム。
-      - 無料版: 3ラウンド、基本カラー
-      - スコア表示（正解数/ラウンド数）
+      - 無料版: dailyLimit=3ラウンド（GAME_FREEMIUM_CONFIGS['color-test'] で設定済み）
+      - FlowEngine('color-test') で難易度自動調整（正解→差異が小さくなる）
+      - 正解時 flowRef.current.onCorrect() → ScorePopup でリワード演出
+      - 3回終了時 ProWallModal を表示
       - Pro壁: ¥480「10種テスト・色覚特性レポート」
-      - 参照: app/apps/reaction/page.tsx（同じ「テスト系」パターン）
+      - 参照パターン: app/apps/tetris/page.tsx（FlowEngine統合済み）
 
   - id: schedule-maker
     file: app/apps/schedule/page.tsx
     spec: |
       「時間割メーカー」アプリ。7列(曜日) × 8行(時間) のグリッドに
       科目名・色を入力してPNG保存できる。
-      - 無料版: 5色、週間グリッド
-      - セル入力 → 色選択
-      - html2canvas または CSS print でPNG保存
+      - 無料版: 5色、週間グリッド（GAME_FREEMIUM_CONFIGS['schedule'] で dailyLimit=3）
+      - 3回作成後にPro壁を表示
       - Pro壁: ¥580「無制限カラー・PDF・Google Calendar同期」
-      - 参照: app/apps/color-palette/page.tsx（UIパターン）
+      - FlowEngine不要（ツール系なので FreemiumGate のみ使用）
+
+  - id: senior-brain-update
+    description: |
+      app/apps/senior-brain/page.tsx に FlowEngine を統合せよ。
+      - 正解時: flowRef.current.onCorrect() → ScorePopup
+      - 不正解時: flowRef.current.onWrong()
+      - FlowIndicator を画面下部に追加
+      - 難易度自動調整を FlowEngine.adjustDifficulty() に委ねる
 
 build_check: npm run build
 report_to: queue/reports/ashigaru1_report.yaml

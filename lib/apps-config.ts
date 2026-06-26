@@ -1,4 +1,4 @@
-// 23本のアプリ設定（買い切り価格・説明）// + 将棋・チェス・オセロ追加
+// 24本のアプリ設定（買い切り価格・説明）// + 将棋・チェス・オセロ・シニア脳トレ追加
 export type AppConfig = {
   id: string;
   slug: string;
@@ -362,6 +362,22 @@ export const APPS: AppConfig[] = [
     price: 480,
     stripePriceId: 'price_othello_pro',
     color: 'from-gray-700 to-gray-600',
+    releaseStatus: 'live',
+  },
+  // ===== シニア向け =====
+  {
+    id: 'senior-brain',
+    slug: 'senior-brain',
+    title: 'シニア向け脳トレ',
+    titleEn: 'Senior Brain',
+    description: '認知機能を楽しく維持・向上',
+    category: 'training',
+    emoji: '🧠',
+    freeFeatures: ['3種類の脳トレゲーム', '1日5問まで', 'スコア記録'],
+    proFeatures: ['10種類の脳トレゲーム', '無制限プレイ', '認知機能レポート', '難易度AI自動調整', '30日間成長グラフ'],
+    price: 680,
+    stripePriceId: 'price_senior_brain_pro',
+    color: 'from-green-600 to-teal-500',
     releaseStatus: 'live',
   },
 ];
