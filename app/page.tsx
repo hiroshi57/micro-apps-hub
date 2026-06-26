@@ -25,14 +25,14 @@ export default function HubPage() {
       {/* Hero */}
       <section className="text-center py-20 px-4 bg-gradient-to-b from-gray-900 to-gray-950">
         <div className="inline-block bg-pro-500/20 text-pro-300 text-sm font-medium px-4 py-1.5 rounded-full mb-6 border border-pro-500/30">
-          🎮 20本のミニアプリ集
+          🎮 24本のミニアプリ集
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
           <span className="text-white">Micro</span>
           <span className="bg-gradient-to-r from-brand-400 to-pro-400 bg-clip-text text-transparent">Apps</span>
         </h1>
         <p className="text-gray-400 text-xl max-w-xl mx-auto mb-8">
-          テトリス・数独・将棋など全20本。<br />
+          テトリス・将棋・脳トレなど全24本。<br />
           無料で試して、気に入ったら<span className="text-pro-400 font-semibold">買い切り Pro</span>へ。
         </p>
         <div className="flex gap-3 justify-center flex-wrap">
