@@ -1,0 +1,62 @@
+ashigaru: 3
+task_id: task-pro-pages-B
+priority: high
+description: |
+  以下5本のアプリの Pro ページを実装せよ。
+  共通パターン: app/apps/tetris/pro/page.tsx を参照。
+
+apps:
+  - slug: memory-card
+    title: 記憶カード
+    price: 380
+    pro_features:
+      - 最大20ペア(40枚)
+      - 10種テーマ
+      - カスタム画像アップロード
+      - 2人対戦モード
+
+  - slug: slide-puzzle
+    title: スライドパズル
+    price: 380
+    pro_features:
+      - 5×5・6×6 グリッド
+      - オリジナル画像パズル
+      - タイムランキング
+      - ヒント機能
+
+  - slug: rock-paper-scissors
+    title: じゃんけんAI
+    price: 480
+    pro_features:
+      - 学習型AI（あなたのクセを読む）
+      - 統計グラフ・勝率推移
+      - 称号システム
+      - 友達対戦モード(URL共有)
+
+  - slug: typing
+    title: タイピング練習
+    price: 580
+    pro_features:
+      - 英語・プログラミング・漢字
+      - 単語1000語以上
+      - 成長グラフ（30日間）
+      - オリジナル文章登録
+
+  - slug: reaction
+    title: 反応速度テスト
+    price: 380
+    pro_features:
+      - 10種類のテスト
+      - 30日間グラフ
+      - 詳細統計レポート
+      - フレンドランキング
+
+output_files:
+  - app/apps/memory-card/pro/page.tsx
+  - app/apps/slide-puzzle/pro/page.tsx
+  - app/apps/rock-paper-scissors/pro/page.tsx
+  - app/apps/typing/pro/page.tsx
+  - app/apps/reaction/pro/page.tsx
+
+build_check: npm run build
+report_to: queue/reports/ashigaru3_report.yaml

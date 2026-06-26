@@ -1,0 +1,29 @@
+ashigaru: 1
+task_id: task-new-apps
+priority: high
+description: |
+  残り2本のアプリページを実装せよ。
+
+tasks:
+  - id: color-test
+    file: app/apps/color-test/page.tsx
+    spec: |
+      「色彩テスト」アプリ。16色のパッチから微妙に違う色を1つ選ぶゲーム。
+      - 無料版: 3ラウンド、基本カラー
+      - スコア表示（正解数/ラウンド数）
+      - Pro壁: ¥480「10種テスト・色覚特性レポート」
+      - 参照: app/apps/reaction/page.tsx（同じ「テスト系」パターン）
+
+  - id: schedule-maker
+    file: app/apps/schedule/page.tsx
+    spec: |
+      「時間割メーカー」アプリ。7列(曜日) × 8行(時間) のグリッドに
+      科目名・色を入力してPNG保存できる。
+      - 無料版: 5色、週間グリッド
+      - セル入力 → 色選択
+      - html2canvas または CSS print でPNG保存
+      - Pro壁: ¥580「無制限カラー・PDF・Google Calendar同期」
+      - 参照: app/apps/color-palette/page.tsx（UIパターン）
+
+build_check: npm run build
+report_to: queue/reports/ashigaru1_report.yaml

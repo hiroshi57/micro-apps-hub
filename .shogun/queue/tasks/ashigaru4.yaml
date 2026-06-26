@@ -1,0 +1,62 @@
+ashigaru: 4
+task_id: task-pro-pages-C
+priority: high
+description: |
+  以下5本のアプリの Pro ページを実装せよ。
+  共通パターン: app/apps/tetris/pro/page.tsx を参照。
+
+apps:
+  - slug: math-trainer
+    title: 計算力トレーナー
+    price: 480
+    pro_features:
+      - 掛け算・割り算・分数・小数
+      - 上級・超級モード
+      - 無制限問題数
+      - 30日間成長グラフ
+
+  - slug: kanji-quiz
+    title: 漢字クイズ
+    price: 680
+    pro_features:
+      - N1〜N5 全レベル対応
+      - 書き取り・熟語クイズ
+      - 苦手問題自動出題AI
+      - 学習記録・継続日数
+
+  - slug: pomodoro
+    title: ポモドーロ
+    price: 580
+    pro_features:
+      - カスタム時間設定
+      - 週次統計グラフ
+      - BGM 10種類
+      - タスクリスト連携
+
+  - slug: breathing
+    title: 呼吸瞑想
+    price: 580
+    pro_features:
+      - 8種類の呼吸法
+      - 最大30分セッション
+      - 環境音 8種類
+      - 記録・継続日数カレンダー
+
+  - slug: color-palette
+    title: カラーパレット
+    price: 580
+    pro_features:
+      - 8色・グラデーション生成
+      - コレクション保存
+      - CSS/SCSS/Tailwind エクスポート
+      - Figma 連携
+
+output_files:
+  - app/apps/math-trainer/pro/page.tsx
+  - app/apps/kanji-quiz/pro/page.tsx
+  - app/apps/pomodoro/pro/page.tsx
+  - app/apps/breathing/pro/page.tsx
+  - app/apps/color-palette/pro/page.tsx
+
+build_check: npm run build
+report_to: queue/reports/ashigaru4_report.yaml

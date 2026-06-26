@@ -1,0 +1,22 @@
+from: shogun
+to: karo
+issued_at: 2026-06-26
+phase: 1
+
+order: |
+  出陣せよ。micro-apps-hub プロジェクトを完成させる。
+
+  足軽1〜5 を同時出陣させ、以下を並列実装させよ:
+    足軽1: 残り2本アプリページ（color-test / schedule-maker）
+    足軽2: Pro ページ A群（sudoku/minesweeper/2048/snake/breakout）
+    足軽3: Pro ページ B群（memory-card/slide-puzzle/rock-paper-scissors/typing/reaction）
+    足軽4: Pro ページ C群（math-trainer/kanji-quiz/pomodoro/breathing/color-palette）
+    足軽5: Pro ページ D群（noise/quote/shogi/chess/othello/color-test）
+
+  足軽1〜5 完了後に足軽6 を出陣:
+    足軽6: CheckoutButton共通化・GitHub・最終デプロイ
+
+  各足軽のタスクは queue/tasks/ashigaru{N}.yaml に記載済み。
+  指示を送り、報告を dashboard.md にまとめよ。
+
+priority: high

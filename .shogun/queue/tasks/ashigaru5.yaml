@@ -1,0 +1,72 @@
+ashigaru: 5
+task_id: task-pro-pages-D
+priority: high
+description: |
+  以下6本のアプリの Pro ページを実装せよ。
+  共通パターン: app/apps/tetris/pro/page.tsx を参照。
+
+apps:
+  - slug: noise
+    title: 作業用BGM
+    price: 680
+    pro_features:
+      - 15種類の環境音
+      - 複数音源の自由ミックス
+      - 無制限再生時間
+      - ポモドーロタイマー連携
+
+  - slug: quote
+    title: 名言ジェネレーター
+    price: 380
+    pro_features:
+      - 無制限生成
+      - 日英・カテゴリ別選択
+      - お気に入り保存
+      - 壁紙ダウンロード(PNG)
+
+  - slug: shogi
+    title: 将棋
+    price: 780
+    pro_features:
+      - 中級・上級・最強 AI
+      - 棋譜記録・再生機能
+      - ヒント機能（次の一手）
+      - オンライン対戦
+
+  - slug: chess
+    title: チェス
+    price: 780
+    pro_features:
+      - 中級・上級・最強 AI
+      - 棋譜 PGN 出力
+      - Opening Book 解説
+      - オンライン対戦
+
+  - slug: othello
+    title: オセロ
+    price: 480
+    pro_features:
+      - 中級・上級・最強 AI
+      - 詰めオセロ問題集 100問
+      - タイムランキング
+      - ダークテーマ変更
+
+  - slug: color-test
+    title: 色彩テスト
+    price: 480
+    pro_features:
+      - 10種類のカラーテスト
+      - 色覚特性レポート
+      - 詳細解析グラフ
+      - PDF ダウンロード
+
+output_files:
+  - app/apps/noise/pro/page.tsx
+  - app/apps/quote/pro/page.tsx
+  - app/apps/shogi/pro/page.tsx
+  - app/apps/chess/pro/page.tsx
+  - app/apps/othello/pro/page.tsx
+  - app/apps/color-test/pro/page.tsx
+
+build_check: npm run build
+report_to: queue/reports/ashigaru5_report.yaml

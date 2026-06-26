@@ -1,0 +1,41 @@
+ashigaru: 6
+task_id: task-infra
+priority: medium
+description: |
+  共通コンポーネント整備・GitHub・最終デプロイを担当。
+  足軽2〜5 の Pro ページ実装が完了してから着手すること。
+
+tasks:
+  - id: checkout-component
+    description: |
+      app/components/CheckoutButton.tsx を作成せよ。
+      全 Pro ページから使える共通の「購入ボタン」クライアントコンポーネント。
+      - 'use client' で Stripe Checkout セッションを /api/stripe/checkout に POST
+      - ローディング状態・エラーハンドリング付き
+      - デザイン: from-pro-600 to-pro-500 の gradient ボタン
+      - 各 Pro ページの <CheckoutButton appSlug="xxx" price={xxx} /> に差し替え
+
+  - id: schedule-pro-page
+    description: |
+      app/apps/schedule/pro/page.tsx を作成せよ。
+      Pro壁テンプレートに従い ¥580 の購入画面。
+
+  - id: github-setup
+    description: |
+      GitHub リポジトリを作成してプッシュせよ。
+      - gh repo create micro-apps-hub --public --source=. --push
+      - README.md を追加（アプリ一覧・Vercel URL・技術スタック）
+
+  - id: final-deploy
+    description: |
+      最終ビルド確認後 Vercel へ本番デプロイせよ。
+      - npm run build → エラーなし確認
+      - vercel deploy --prod --scope takizawahiroshi-gmailcoms-projects
+
+output_files:
+  - app/components/CheckoutButton.tsx
+  - app/apps/schedule/pro/page.tsx
+  - README.md
+
+build_check: npm run build
+report_to: queue/reports/ashigaru6_report.yaml

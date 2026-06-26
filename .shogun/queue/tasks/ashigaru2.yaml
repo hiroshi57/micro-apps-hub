@@ -1,0 +1,65 @@
+ashigaru: 2
+task_id: task-pro-pages-A
+priority: high
+description: |
+  以下5本のアプリの Pro ページを実装せよ。
+  共通パターン: app/apps/tetris/pro/page.tsx を参照して同じ構造で作る。
+  - export const dynamic = 'force-dynamic' を先頭に付ける
+  - ログイン未ログイン → /auth/login へ誘導
+  - 未購入 → 購入ボタン（CheckoutButton コンポーネント）
+  - 購入済み → ゲーム本体（「Pro機能は実装中」プレースホルダーでOK）
+
+apps:
+  - slug: sudoku
+    title: 数独
+    price: 480
+    pro_features:
+      - 難・超難・地獄 難易度
+      - ヒント無制限
+      - タイム記録・ランキング
+      - ペンシルメモ機能
+
+  - slug: minesweeper
+    title: マインスイーパー
+    price: 380
+    pro_features:
+      - 中級(16×16)・上級(30×16)・カスタム
+      - タイムランキング
+      - 統計グラフ
+      - テーマ変更
+
+  - slug: 2048
+    title: 2048
+    price: 380
+    pro_features:
+      - 5×5・6×6 グリッド
+      - 無制限アンドゥ
+      - カラーテーマ
+      - AI自動プレイ観戦
+
+  - slug: snake
+    title: スネーク
+    price: 380
+    pro_features:
+      - 障害物モード・迷路モード
+      - オンラインランキング
+      - 5速度・カスタムスキン
+
+  - slug: breakout
+    title: ブロック崩し
+    price: 480
+    pro_features:
+      - 50ステージ
+      - パワーアップアイテム
+      - BGM 5種類
+      - カスタムボール・パドル
+
+output_files:
+  - app/apps/sudoku/pro/page.tsx
+  - app/apps/minesweeper/pro/page.tsx
+  - app/apps/2048/pro/page.tsx
+  - app/apps/snake/pro/page.tsx
+  - app/apps/breakout/pro/page.tsx
+
+build_check: npm run build
+report_to: queue/reports/ashigaru2_report.yaml

@@ -1,0 +1,14 @@
+project: micro-apps-hub
+description: 21本ミニアプリ × フリーミアム完成・本番稼働
+base_dir: /c/Users/hiroshi_takizawa/micro-apps-hub
+language: ja
+started_at: 2026-06-26
+
+goals:
+  - 残り2アプリページ実装（color-test / schedule-maker）
+  - 全21本の Pro ページ実装（現在 tetris のみ）
+  - Checkout クライアントコンポーネント共通化
+  - GitHub リポジトリ公開
+  - Vercel 本番環境変数更新（Supabase実値）
+
+ashigaru_count: 6
