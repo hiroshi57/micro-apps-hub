@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const { appSlug } = await req.json();
 
     // ユーザー認証確認
-    const supabase = createClient();
+    const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) {
       return NextResponse.json({ error: 'ログインが必要です' }, { status: 401 });

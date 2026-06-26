@@ -5,13 +5,14 @@ import { hasPurchased } from '@/lib/purchases';
 export default async function TetrisProPage({
   searchParams,
 }: {
-  searchParams: { success?: string };
+  searchParams: Promise<{ success?: string }>;
 }) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  const params = await searchParams;
 
   const purchased = user ? await hasPurchased(user.id, 'tetris') : false;
-  const justPurchased = searchParams.success === '1';
+  const justPurchased = params.success === '1';
 
   if (!user) {
     return (
