@@ -10,7 +10,7 @@
 set -e
 
 TOKEN="${SUPABASE_ACCESS_TOKEN:-}"
-VERCEL_SCOPE="takizawahiroshi-gmailcoms-projects"
+VERCEL_SCOPE="YOUR_VERCEL_SCOPE"
 PROJECT_NAME="micro-apps-hub"
 REGION="ap-northeast-1"   # 東京
 

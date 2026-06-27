@@ -120,7 +120,7 @@ npm run apps:instagram
 npm run apps:instagram:dry-run
 
 # デプロイ
-npx vercel --yes --prod --scope takizawahiroshi-gmailcoms-projects
+npx vercel --yes --prod --scope YOUR_VERCEL_SCOPE
 
 # Supabase 設定反映
 npx supabase config push --project-ref vvascrjcjosbtcrlbakt
@@ -133,7 +133,7 @@ npx supabase config push --project-ref vvascrjcjosbtcrlbakt
 | 項目 | URL |
 |------|-----|
 | 本番サイト | https://micro-apps-hub-seven.vercel.app |
-| Vercel ダッシュボード | https://vercel.com/takizawahiroshi-gmailcoms-projects/micro-apps-hub |
+| Vercel ダッシュボード | https://vercel.com/YOUR_VERCEL_SCOPE/micro-apps-hub |
 | Supabase ダッシュボード | https://supabase.com/dashboard/project/vvascrjcjosbtcrlbakt |
 | Stripe ダッシュボード | https://dashboard.stripe.com/test |
 | GitHub | https://github.com/hiroshi57/micro-apps-hub |

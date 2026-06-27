@@ -29,4 +29,4 @@ skill_candidate: "再利用できそうなパターンがあれば記述"
 ```
 
 ## 作業ディレクトリ
-/c/Users/hiroshi_takizawa/micro-apps-hub
+/path/to/micro-apps-hub

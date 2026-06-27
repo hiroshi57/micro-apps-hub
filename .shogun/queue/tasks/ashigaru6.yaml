@@ -38,7 +38,7 @@ tasks:
     description: |
       最終ビルド確認後 Vercel へ本番デプロイせよ。
       - npm run build → エラーなし確認
-      - vercel deploy --prod --scope takizawahiroshi-gmailcoms-projects
+      - vercel deploy --prod --scope YOUR_VERCEL_SCOPE
 
 output_files:
   - app/components/CheckoutButton.tsx

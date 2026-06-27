@@ -4,7 +4,7 @@
 # 使い方: bash .shogun/start-shogun.sh
 # ============================================================
 
-WORK_DIR="/c/Users/hiroshi_takizawa/micro-apps-hub"
+WORK_DIR="/path/to/micro-apps-hub"
 CLAUDE_CMD="claude"
 
 echo "🏯 将軍システム 起動中..."

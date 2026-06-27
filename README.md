@@ -119,7 +119,7 @@ npm run dev
 ## デプロイ
 
 ```bash
-vercel deploy --prod --scope takizawahiroshi-gmailcoms-projects
+vercel deploy --prod --scope YOUR_VERCEL_SCOPE
 ```
 
 ---

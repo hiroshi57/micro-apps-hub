@@ -65,7 +65,7 @@
 | senior-brain | 5問/日 |
 
 ## Vercel URL
-https://micro-apps-2jque7wkt-takizawahiroshi-gmailcoms-projects.vercel.app
+https://your-app.vercel.app
 
 ## TimesFM セットアップ（オプション）
 ```bash

@@ -28,7 +28,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://micro-apps-hub-seven.vercel.app",
-        "https://micro-apps-2jque7wkt-takizawahiroshi-gmailcoms-projects.vercel.app",
+        "https://your-app.vercel.app",
         "http://localhost:3000",
     ],
     allow_methods=["POST", "GET"],
