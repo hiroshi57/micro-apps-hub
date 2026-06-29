@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
     inputs:
       hf_username:
-        description: 'Hugging Face ユーザー名 (例: hiroshi57)'
+        description: 'Hugging Face ユーザー名'
         required: true
-        default: 'hiroshi57'
+        default: 'HiroshiTakizawa'
       space_name:
         description: 'Space 名'
         required: true
@@ -40,7 +40,7 @@ jobs:
         id: params
         run: |
           # workflow_dispatch の入力値、または push 時のデフォルト
-          USERNAME="${{ github.event.inputs.hf_username || 'hiroshi57' }}"
+          USERNAME="${{ github.event.inputs.hf_username || 'HiroshiTakizawa' }}"
           SPACE="${{ github.event.inputs.space_name || 'timesfm-prediction-api' }}"
           echo "username=$USERNAME" >> $GITHUB_OUTPUT
           echo "space=$SPACE"       >> $GITHUB_OUTPUT
