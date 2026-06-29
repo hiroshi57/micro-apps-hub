@@ -1,0 +1,122 @@
+[
+  {
+    "id": "tetris",
+    "priceId": "price_1TmT84CnZYbd0wNBjZMg8Fym",
+    "price": 480
+  },
+  {
+    "id": "sudoku",
+    "priceId": "price_1TmT85CnZYbd0wNBuYWKt6jr",
+    "price": 480
+  },
+  {
+    "id": "shogi",
+    "priceId": "price_1TmT85CnZYbd0wNB50ywPbVn",
+    "price": 780
+  },
+  {
+    "id": "chess",
+    "priceId": "price_1TmT86CnZYbd0wNBwrhKeVQo",
+    "price": 780
+  },
+  {
+    "id": "othello",
+    "priceId": "price_1TmT86CnZYbd0wNBUdbCwMur",
+    "price": 480
+  },
+  {
+    "id": "minesweeper",
+    "priceId": "price_1TmT87CnZYbd0wNBA8Zuek3Z",
+    "price": 380
+  },
+  {
+    "id": "2048",
+    "priceId": "price_1TmT87CnZYbd0wNBPanLjwvT",
+    "price": 380
+  },
+  {
+    "id": "snake",
+    "priceId": "price_1TmT88CnZYbd0wNBuvYqBBC0",
+    "price": 380
+  },
+  {
+    "id": "breakout",
+    "priceId": "price_1TmT88CnZYbd0wNBlLlG1GzC",
+    "price": 480
+  },
+  {
+    "id": "memory-card",
+    "priceId": "price_1TmT89CnZYbd0wNByiJmV1FT",
+    "price": 380
+  },
+  {
+    "id": "slide-puzzle",
+    "priceId": "price_1TmT8ACnZYbd0wNB0Uhnfom5",
+    "price": 380
+  },
+  {
+    "id": "rock-paper-scissors",
+    "priceId": "price_1TmT8ACnZYbd0wNBlhzjNvBn",
+    "price": 480
+  },
+  {
+    "id": "typing",
+    "priceId": "price_1TmT8BCnZYbd0wNBBNw2PHwt",
+    "price": 580
+  },
+  {
+    "id": "reaction",
+    "priceId": "price_1TmT8BCnZYbd0wNBsnpTEzZe",
+    "price": 380
+  },
+  {
+    "id": "math-trainer",
+    "priceId": "price_1TmT8CCnZYbd0wNBwT90nYkt",
+    "price": 480
+  },
+  {
+    "id": "kanji-quiz",
+    "priceId": "price_1TmT8CCnZYbd0wNBMB5k2dos",
+    "price": 680
+  },
+  {
+    "id": "pomodoro",
+    "priceId": "price_1TmT8DCnZYbd0wNBMgdikWsg",
+    "price": 580
+  },
+  {
+    "id": "breathing",
+    "priceId": "price_1TmT8ECnZYbd0wNBoyVOL9d8",
+    "price": 580
+  },
+  {
+    "id": "color-palette",
+    "priceId": "price_1TmT8ECnZYbd0wNBWG0nlSK5",
+    "price": 580
+  },
+  {
+    "id": "noise",
+    "priceId": "price_1TmT8ECnZYbd0wNBH8721OzJ",
+    "price": 680
+  },
+  {
+    "id": "quote",
+    "priceId": "price_1TmT8FCnZYbd0wNBURnDnz3h",
+    "price": 380
+  },
+  {
+    "id": "color-test",
+    "priceId": "price_1TmT8GCnZYbd0wNBotZhzfmv",
+    "price": 480
+  },
+  {
+    "id": "schedule",
+    "priceId": "price_1TmT8GCnZYbd0wNBT1YzL7Uw",
+    "price": 580
+  },
+  {
+    "id": "senior-brain",
+    "priceId": "price_1TmT8HCnZYbd0wNBZHOeZ75T",
+    "price": 680
+  }
+]

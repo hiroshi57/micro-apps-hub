@@ -6,9 +6,10 @@ export const runtime = 'edge';
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-  const app = APPS.find((a) => a.slug === params.slug);
+  const { slug } = await params;
+  const app = APPS.find((a) => a.slug === slug);
 
   // スラッグ不明時はデフォルトカード
   const title  = app?.title   ?? 'MicroApps Hub';

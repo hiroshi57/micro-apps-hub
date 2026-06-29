@@ -1,0 +1,29 @@
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+
+export const metadata: Metadata = {
+  title: 'オセロ | MicroApps Hub',
+  description: 'リバーシで頭を使う。AI難易度5段階。',
+  openGraph: {
+    title: 'オセロ | MicroApps Hub',
+    description: 'リバーシで頭を使う。AI難易度5段階。',
+    images: [
+      {
+        url: '/api/og/othello',
+        width: 1200,
+        height: 630,
+        alt: 'オセロ',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'オセロ | MicroApps Hub',
+    description: 'リバーシで頭を使う。AI難易度5段階。',
+    images: ['/api/og/othello'],
+  },
+};
+
+export default function Layout({ children }: { children: ReactNode }) {
+  return <>{children}</>;
+}
