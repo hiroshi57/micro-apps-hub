@@ -35,37 +35,37 @@ timesfm-server/ を HF Spaces にデプロイ
 - [ ] `TIMESFM_API_URL=https://xxx.hf.space` を Vercel に設定
 - [ ] `/api/predict` エンドポイントで疎通確認
 
-### 2. Instagram 用アプリ画像の用意
+### 2. Instagram 用アプリ画像の用意 ✅ 2026-06-29 完了
 ```
 Instagram は画像必須。各アプリのスクリーンショットが必要。
 ```
-- [ ] Playwright でアプリ画面を自動撮影するスクリプト作成
-  - `scripts/capture-app-screenshots.js`
-- [ ] OGP 画像を Next.js で自動生成（`@vercel/og`）
-  - `app/api/og/[slug]/route.tsx` を追加
-- [ ] `MICRO_APPS_DEFAULT_IMAGE_URL` を `.env.local` に設定
+- [x] Playwright でアプリ画面を自動撮影するスクリプト作成
+  - `scripts/capture-app-screenshots.js` (dry-run対応)
+- [x] OGP 画像を Next.js で自動生成（`@vercel/og`）
+  - `app/api/og/[slug]/route.tsx` 追加済み（1200×630, edge runtime）
+- [ ] `MICRO_APPS_DEFAULT_IMAGE_URL` を `.env.local` に設定 ← 残タスク
+- [ ] 本番でスクリーンショット実撮影 (`npx playwright install chromium && npm run apps:screenshot`)
 
-### 3. GitHub Actions — Note・Instagram 定期投稿
+### 3. GitHub Actions — Note・Instagram 定期投稿 ✅ 2026-06-29 完了
 ```
 X は既に Actions で動いている。Note・Instagram も追加する。
 ```
-- [ ] `.github/workflows/note-daily.yml` 追加（毎日 07:00 JST）
-- [ ] `.github/workflows/instagram-daily.yml` 追加（週3回: 月水金）
-- [ ] GitHub Secrets に `NOTE_EMAIL`, `NOTE_PASSWORD`, `INSTAGRAM_USERNAME`, `INSTAGRAM_PASSWORD` 追加
+- [x] `.github/workflows/note-daily.yml` 追加（毎日 07:00 JST）
+- [x] `.github/workflows/instagram-daily.yml` 追加（週3回: 月水金 08:00 JST）
+- [x] スクリプト作成: `scripts/post-to-note.js` / `scripts/post-to-instagram.js`
+- [ ] GitHub Secrets に設定が必要:
+  - `NOTE_SESSION` (Note.com の __session クッキー)
+  - `INSTAGRAM_ACCESS_TOKEN` (Instagram Graph API 長期トークン)
+  - `INSTAGRAM_USER_ID` (IG ビジネスアカウント ID)
 
 ---
 
 ## 📋 優先度：中（今月中）
 
-### 4. OGP 画像自動生成
-```typescript
-// app/api/og/[slug]/route.tsx
-// Vercel OG で各アプリのカード画像を自動生成
-// ImageResponse → Instagram / X カード / Note のサムネに流用
-```
-- [ ] `@vercel/og` インストール
-- [ ] アプリ名・絵文字・無料/Pro の情報を載せたカード
-- [ ] `<meta property="og:image">` に設定
+### 4. OGP 画像自動生成 ✅ 2026-06-29 完了（タスク2に統合）
+- [x] `@vercel/og` インストール済み
+- [x] アプリ名・絵文字・価格・Pro バッジのカード生成
+- [x] `<meta property="og:image">` / Twitter Card 設定済み (`layout.tsx`)
 
 ### 5. ユーザー認証フロー完成
 - [ ] サインアップ → メール確認フロー動作確認
