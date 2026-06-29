@@ -1,0 +1,117 @@
+name: Deploy TimesFM to HF Spaces
+
+on:
+  # 手動トリガー（Actions タブ → Run workflow）
+  workflow_dispatch:
+    inputs:
+      hf_username:
+        description: 'Hugging Face ユーザー名 (例: hiroshi57)'
+        required: true
+        default: 'hiroshi57'
+      space_name:
+        description: 'Space 名'
+        required: true
+        default: 'timesfm-prediction-api'
+
+  # timesfm-server/ を変更したら自動デプロイ
+  push:
+    branches: [master]
+    paths:
+      - 'timesfm-server/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install huggingface_hub
+        run: pip install huggingface_hub
+
+      - name: Resolve params
+        id: params
+        run: |
+          # workflow_dispatch の入力値、または push 時のデフォルト
+          USERNAME="${{ github.event.inputs.hf_username || 'hiroshi57' }}"
+          SPACE="${{ github.event.inputs.space_name || 'timesfm-prediction-api' }}"
+          echo "username=$USERNAME" >> $GITHUB_OUTPUT
+          echo "space=$SPACE"       >> $GITHUB_OUTPUT
+          echo "space_id=${USERNAME}/${SPACE}" >> $GITHUB_OUTPUT
+
+      - name: Create Space & Upload files
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PYEOF'
+          import os, sys
+          from pathlib import Path
+          from huggingface_hub import HfApi
+
+          token    = os.environ["HF_TOKEN"]
+          username = "${{ steps.params.outputs.username }}"
+          space    = "${{ steps.params.outputs.space }}"
+          space_id = f"{username}/{space}"
+          src_dir  = Path("timesfm-server")
+
+          if not token:
+              print("❌ HF_TOKEN シークレットが未設定です")
+              sys.exit(1)
+
+          api = HfApi(token=token)
+
+          # ── Space 作成 (既存の場合はスキップ)
+          print(f"[1/2] Space 作成: {space_id}")
+          api.create_repo(
+              repo_id   = space_id,
+              repo_type = "space",
+              space_sdk = "docker",
+              exist_ok  = True,
+          )
+          print(f"  → https://huggingface.co/spaces/{space_id}")
+
+          # ── ファイルアップロード
+          print("[2/2] ファイルをアップロード...")
+          files = ["Dockerfile", "main.py", "requirements.txt", "README.md"]
+          for fname in files:
+              fpath = src_dir / fname
+              if not fpath.exists():
+                  print(f"  ⚠️  {fname} が見つかりません")
+                  continue
+              api.upload_file(
+                  path_or_fileobj = str(fpath),
+                  path_in_repo    = fname,
+                  repo_id         = space_id,
+                  repo_type       = "space",
+                  commit_message  = f"ci: deploy {fname}",
+              )
+              print(f"  ✅ {fname}")
+
+          api_url = f"https://{username}-{space}.hf.space"
+          print(f"\n🎉 デプロイ完了！")
+          print(f"  Space   : https://huggingface.co/spaces/{space_id}")
+          print(f"  API URL : {api_url}")
+          print(f"  /health : {api_url}/health")
+          PYEOF
+
+      - name: Show Vercel env instructions
+        run: |
+          USERNAME="${{ steps.params.outputs.username }}"
+          SPACE="${{ steps.params.outputs.space }}"
+          API_URL="https://${USERNAME}-${SPACE}.hf.space"
+          echo ""
+          echo "========================================"
+          echo "📋 次のステップ: Vercel 環境変数を設定"
+          echo "========================================"
+          echo "vercel env add TIMESFM_API_URL production"
+          echo "→ 値: ${API_URL}"
+          echo ""
+          echo "または Vercel ダッシュボードで手動設定:"
+          echo "https://vercel.com/dashboard → micro-apps-hub → Settings → Env"
