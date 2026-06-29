@@ -1,6 +1,6 @@
 # Next.task.md — micro-apps-hub 今後のタスク
 
-> 更新日: 2026-06-26
+> 更新日: 2026-06-29
 
 ---
 
@@ -15,7 +15,9 @@
 | Stripe決済 | 24アプリ分のPrice ID作成・Webhook設定済み |
 | Supabase Auth | site_url・redirect_urls設定済み (vvascrjcjosbtcrlbakt) |
 | learning_records | Pro向けサーバーサイド学習データテーブル |
-| TimesFMサーバー | FastAPIラッパー実装済み（HFSpacesデプロイ待ち）|
+| TimesFMサーバー v2 | TimesFM 2.5(200M)対応・deploy-to-hf.sh完成（HFアカウントでの実行待ち）|
+| OGP 画像自動生成 | /api/og/[slug] edge runtime・全24アプリ layout.tsx で個別設定 |
+| GitHub Actions | note-daily.yml / instagram-daily.yml 追加済み（Secrets設定待ち）|
 | Vercel本番デプロイ | https://micro-apps-hub-seven.vercel.app ✅ |
 | X自動投稿 | 日替わり24アプリローテーション（chatwork-x-automation）|
 | Note自動投稿 | 個別アプリ紹介記事（apps:note コマンド）|
@@ -25,14 +27,16 @@
 
 ## 🔥 優先度：高（今週中）
 
-### 1. TimesFM → Hugging Face Spaces デプロイ
+### 1. TimesFM → Hugging Face Spaces デプロイ（コード完成・操作待ち）
+```bash
+# デプロイ手順（HF CLI 必要）
+hf auth login                              # HF トークンでログイン
+bash timesfm-server/deploy-to-hf.sh hiroshi57   # Space 作成 + push
+vercel env add TIMESFM_API_URL production  # Vercel 環境変数に設定
 ```
-timesfm-server/ を HF Spaces にデプロイ
-→ TIMESFM_API_URL を Vercel 環境変数に設定
-```
-- [ ] HF アカウントで新規 Space 作成（Docker SDK）
-- [ ] `timesfm-server/` を push
-- [ ] `TIMESFM_API_URL=https://xxx.hf.space` を Vercel に設定
+- [x] `timesfm-server/` コード完成（TimesFM 2.5 / Dockerfile / deploy-to-hf.sh）
+- [ ] HF アカウントで `hf auth login` → `bash timesfm-server/deploy-to-hf.sh <HF_USERNAME>`
+- [ ] `TIMESFM_API_URL=https://<HF_USERNAME>-timesfm-server.hf.space` を Vercel に設定
 - [ ] `/api/predict` エンドポイントで疎通確認
 
 ### 2. Instagram 用アプリ画像の用意 ✅ 2026-06-29 完了
