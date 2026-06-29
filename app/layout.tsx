@@ -1,16 +1,31 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
+const SITE_URL = 'https://micro-apps-hub-seven.vercel.app';
+
 export const metadata: Metadata = {
   title: {
-    default: 'MicroApps Hub — 20本のミニアプリ集',
+    default: 'MicroApps Hub — 24本のミニアプリ集',
     template: '%s | MicroApps Hub',
   },
-  description: 'テトリス・数独・将棋など20本のミニアプリ。無料版で試して、気に入ったら買い切りProにアップグレード。',
+  description: 'テトリス・数独・将棋など24本のミニアプリ。無料版で試して、気に入ったら買い切りProにアップグレード。',
   keywords: ['テトリス', '数独', '将棋', 'ゲーム', 'パズル', '集中', '瞑想', 'ポモドーロ'],
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: 'website',
     siteName: 'MicroApps Hub',
+    images: [
+      {
+        url: '/api/og/tetris',   // デフォルト OG 画像 (テトリスカード)
+        width: 1200,
+        height: 630,
+        alt: 'MicroApps Hub',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [`${SITE_URL}/api/og/tetris`],
   },
 };
 

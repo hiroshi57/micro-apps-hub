@@ -1,0 +1,51 @@
+name: Instagram Post (Mon/Wed/Fri)
+
+on:
+  schedule:
+    # 月・水・金 08:00 JST (= 23:00 UTC 前日)
+    - cron: '0 23 * * 0,2,4'
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: '投稿するアプリのスラッグ (省略時: 日替わり)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'dry-run モード (true/false)'
+        required: false
+        default: 'false'
+
+jobs:
+  post-to-instagram:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Post to Instagram
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID:      ${{ secrets.INSTAGRAM_USER_ID }}
+        run: |
+          SLUG="${{ github.event.inputs.slug }}"
+          DRY="${{ github.event.inputs.dry_run }}"
+          ARGS=""
+          [ -n "$SLUG"         ] && ARGS="$ARGS $SLUG"
+          [ "$DRY" = "true"    ] && ARGS="$ARGS --dry-run"
+          echo "▶ node scripts/post-to-instagram.js$ARGS"
+          node scripts/post-to-instagram.js$ARGS
+
+      - name: Notify on failure
+        if: failure()
+        run: echo "::error::Instagram 投稿に失敗しました。INSTAGRAM_ACCESS_TOKEN / INSTAGRAM_USER_ID を確認してください。"
