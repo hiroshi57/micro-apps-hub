@@ -101,7 +101,7 @@ async function postToNote(app, body) {
       status: 'published',
       name: `${app.emoji} ${app.title} — 無料で遊べるミニアプリ紹介`,
       body,
-      eyecatch_image_url: `${BASE_URL}/screenshots/${app.slug}.png`,
+      eyecatch_image_url: `${BASE_URL}/api/og/${app.slug}`,
       hashtag_notes_attributes: [
         { tag_name: 'MicroAppsHub' },
         { tag_name: app.title },

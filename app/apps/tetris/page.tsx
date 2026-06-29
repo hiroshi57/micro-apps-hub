@@ -6,6 +6,7 @@ import { FlowEngine, type RewardEvent } from '@/lib/flow-engine';
 import { FreemiumGate, GAME_FREEMIUM_CONFIGS } from '@/lib/freemium-gate';
 import { ProWallModal, ScorePopup, FlowIndicator } from '@/app/components/ProWallModal';
 import { recordGameResult } from '@/lib/learning';
+import { PredictionCard } from '@/app/components/PredictionCard';
 
 // ============================================================
 // テトリス定数
@@ -333,6 +334,9 @@ export default function TetrisPage() {
             className="block text-center bg-gradient-to-r from-pro-700 to-pro-500 text-white text-sm font-bold py-2 rounded-xl">
             ★ Pro ¥480
           </Link>
+
+          {/* AI スコア予測（5回以上プレイ後に表示） */}
+          <PredictionCard slug="tetris" latestScore={display.score} />
         </div>
       </div>
     </main>
