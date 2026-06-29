@@ -35,20 +35,20 @@ bash timesfm-server/deploy-to-hf.sh hiroshi57   # Space 作成 + push
 vercel env add TIMESFM_API_URL production  # Vercel 環境変数に設定
 ```
 - [x] `timesfm-server/` コード完成（TimesFM 2.5 / Dockerfile / deploy-to-hf.sh）
+- [x] `app/components/PredictionCard.tsx` — スコア予測UIを実装・テトリスに組込済み
+- [x] `/api/predict` route 完成（TimesFM連携 + 線形回帰フォールバック）
+- [x] `.env.local.example` — セットアップ手順ドキュメント化
 - [ ] HF アカウントで `hf auth login` → `bash timesfm-server/deploy-to-hf.sh <HF_USERNAME>`
 - [ ] `TIMESFM_API_URL=https://<HF_USERNAME>-timesfm-server.hf.space` を Vercel に設定
-- [ ] `/api/predict` エンドポイントで疎通確認
 
 ### 2. Instagram 用アプリ画像の用意 ✅ 2026-06-29 完了
 ```
-Instagram は画像必須。各アプリのスクリーンショットが必要。
+Instagram は画像必須。/api/og/{slug} OGP API を直接使用する方式に統一。
 ```
-- [x] Playwright でアプリ画面を自動撮影するスクリプト作成
-  - `scripts/capture-app-screenshots.js` (dry-run対応)
-- [x] OGP 画像を Next.js で自動生成（`@vercel/og`）
-  - `app/api/og/[slug]/route.tsx` 追加済み（1200×630, edge runtime）
-- [ ] `MICRO_APPS_DEFAULT_IMAGE_URL` を `.env.local` に設定 ← 残タスク
-- [ ] 本番でスクリーンショット実撮影 (`npx playwright install chromium && npm run apps:screenshot`)
+- [x] OGP 画像を Next.js で自動生成（`@vercel/og`）— `/api/og/{slug}` (1200×630, edge runtime)
+- [x] `MICRO_APPS_DEFAULT_IMAGE_URL` — `.env.local` / `.env.local.example` に設定済み
+- [x] `post-to-note.js` の eyecatch を `/api/og/{slug}` に修正（破損していた `/screenshots/*.png` 参照を解消）
+- [x] Instagram スクリプトは最初から `/api/og/{slug}` を使用 ✅
 
 ### 3. GitHub Actions — Note・Instagram 定期投稿 ✅ 2026-06-29 完了
 ```
@@ -56,8 +56,9 @@ X は既に Actions で動いている。Note・Instagram も追加する。
 ```
 - [x] `.github/workflows/note-daily.yml` 追加（毎日 07:00 JST）
 - [x] `.github/workflows/instagram-daily.yml` 追加（週3回: 月水金 08:00 JST）
+- [x] `.github/workflows/check-secrets.yml` 追加 — Secrets 設定確認 + dry-run プレビュー
 - [x] スクリプト作成: `scripts/post-to-note.js` / `scripts/post-to-instagram.js`
-- [ ] GitHub Secrets に設定が必要:
+- [ ] GitHub Secrets に設定が必要 → **check-secrets ワークフローで確認可能**:
   - `NOTE_SESSION` (Note.com の __session クッキー)
   - `INSTAGRAM_ACCESS_TOKEN` (Instagram Graph API 長期トークン)
   - `INSTAGRAM_USER_ID` (IG ビジネスアカウント ID)
