@@ -16,7 +16,11 @@ export const revalidate = 3600; // 1時間キャッシュ
 
 export async function GET() {
   // live 済みのアプリのみ返す（soon アプリはサーバーサイドで除外）
-  // stripePriceId / releaseStatus などの内部フィールドは含めない
+  // 外部 API に不要なフィールドを除外:
+  //   stripePriceId  … Stripe 内部情報
+  //   releaseStatus  … サーバーでフィルタ済み、露出不要
+  //   color          … Tailwind クラス（フロントエンド専用実装詳細）
+  //   id / titleEn   … 内部管理用フィールド
   const apps = APPS.filter((a) => a.releaseStatus === 'live').map((a) => ({
     slug:         a.slug,
     title:        a.title,
@@ -26,7 +30,6 @@ export async function GET() {
     description:  a.description,
     freeFeatures: a.freeFeatures,
     proFeatures:  a.proFeatures,
-    color:        a.color,
   }));
 
   return NextResponse.json(
