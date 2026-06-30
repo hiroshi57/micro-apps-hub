@@ -3,6 +3,15 @@ export const dynamic = 'force-dynamic';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { hasPurchased } from '@/lib/purchases';
+import { CheckoutButton } from '@/app/components/CheckoutButton';
+
+const PRO_FEATURES = [
+  'レベル 1〜20（無制限）',
+  '10種類のカラーテーマ',
+  'オンラインランキング',
+  'BGM 5種類',
+  '永久利用・買い切り',
+];
 
 export default async function TetrisProPage({
   searchParams,
@@ -38,13 +47,13 @@ export default async function TetrisProPage({
           <div className="text-6xl mb-4">🧱</div>
           <h1 className="text-3xl font-bold mb-2">テトリス Pro</h1>
           <p className="text-gray-400 mb-6">レベル上限なし・10テーマ・オンランキング搭載の完全版</p>
-          <ul className="text-left text-sm text-gray-300 mb-8 space-y-2">
-            {['レベル 1〜20 (無制限)', '10種類のカラーテーマ', 'オンラインランキング', 'BGM 5種類', '永久利用・買い切り'].map(f => (
-              <li key={f} className="flex items-center gap-2">
+          <div className="grid gap-3 mb-8">
+            {PRO_FEATURES.map(f => (
+              <div key={f} className="bg-white/5 rounded-xl px-4 py-3 text-left text-sm text-gray-300 flex items-center gap-2">
                 <span className="text-pro-400">★</span> {f}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
           <CheckoutButton appSlug="tetris" price={480} />
           <Link href="/apps/tetris" className="block mt-3 text-gray-500 text-sm hover:text-white transition-colors">
             無料版に戻る
@@ -61,30 +70,29 @@ export default async function TetrisProPage({
           🎉 購入ありがとうございます！全機能が解放されました。
         </div>
       )}
-      <div className="mb-4 flex items-center gap-3">
+      <div className="mb-6 flex items-center gap-3">
         <Link href="/" className="text-gray-500 hover:text-white">← Hub</Link>
         <span className="text-gray-700">/</span>
         <h1 className="text-2xl font-bold">🧱 テトリス Pro</h1>
-        <span className="pro-badge">PRO</span>
+        <span className="bg-gradient-to-r from-indigo-600 to-purple-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">PRO</span>
       </div>
-      <p className="text-gray-400 text-sm">全20レベル解放済み — こちらにフルゲームを実装します</p>
-      {/* TODO: Pro版ゲームコンポーネント（レベル20・テーマ選択・BGM） */}
-      <div className="mt-8 text-6xl animate-pulse">🧱</div>
-      <p className="text-gray-600 mt-4 text-sm">Pro ゲームロード中…</p>
+      <div className="text-center max-w-sm">
+        <div className="text-8xl mb-6">🧱</div>
+        <p className="text-gray-400 mb-8">全20レベル解放済み。最高難度への挑戦を楽しんでください。</p>
+        <div className="grid gap-3 mb-8">
+          {PRO_FEATURES.map(f => (
+            <div key={f} className="bg-white/5 rounded-xl px-4 py-3 text-left text-sm text-gray-300 flex items-center gap-2">
+              <span className="text-pro-400">★</span> {f}
+            </div>
+          ))}
+        </div>
+        <Link
+          href="/apps/tetris"
+          className="inline-block bg-brand-600 hover:bg-brand-500 text-white font-bold px-8 py-3 rounded-full transition-colors"
+        >
+          テトリスをプレイ →
+        </Link>
+      </div>
     </main>
-  );
-}
-
-function CheckoutButton({ appSlug, price }: { appSlug: string; price: number }) {
-  return (
-    <form action="/api/stripe/checkout" method="POST">
-      <input type="hidden" name="appSlug" value={appSlug} />
-      <button
-        type="submit"
-        className="w-full bg-gradient-to-r from-pro-600 to-pro-500 hover:from-pro-500 hover:to-pro-400 text-white font-bold py-4 px-8 rounded-full text-lg transition-all"
-      >
-        ¥{price.toLocaleString()} で Pro を購入（買い切り）
-      </button>
-    </form>
   );
 }

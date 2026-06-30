@@ -190,7 +190,12 @@ export const GAME_FREEMIUM_CONFIGS: Record<string, Omit<FreemiumConfig, 'slug'>>
   shogi:              { dailyLimit: 3, proPath: '/apps/shogi/pro' },
   chess:              { dailyLimit: 3, proPath: '/apps/chess/pro' },
   othello:            { dailyLimit: 5, proPath: '/apps/othello/pro' },
-  'senior-brain':     { dailyLimit: 5, proPath: '/apps/senior-brain/pro' },
+  'senior-brain':     { dailyLimit: 5,  proPath: '/apps/senior-brain/pro' },
+  // 2026-06-29 追加の4アプリ
+  flashcard:          { dailyLimit: 5,  proPath: '/apps/flashcard/pro' },
+  'quiz-maker':       { dailyLimit: 5,  proPath: '/apps/quiz-maker/pro' },
+  haiku:              { dailyLimit: 3,  proPath: '/apps/haiku/pro' },
+  bingo:              { dailyLimit: 5,  proPath: '/apps/bingo/pro' },
 };
 
 /** ゲームの FreemiumGate インスタンスを取得 */
