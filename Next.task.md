@@ -72,14 +72,22 @@ X は既に Actions で動いている。Note・Instagram も追加する。
 - [x] アプリ名・絵文字・価格・Pro バッジのカード生成
 - [x] `<meta property="og:image">` / Twitter Card 設定済み (`layout.tsx`)
 
-### 5. ユーザー認証フロー完成
-- [x] サインアップ → メール確認フロー（`app/auth/callback/route.ts` 実装済み・要本番手動確認）
+### 5. ユーザー認証フロー完成 ✅ 2026-06-30 本番実接続で検証完了
+```bash
+npm run verify:auth   # 本番Supabaseに実接続して12項目を自動検証 (テストユーザーは自動削除)
+```
+- [x] サインアップ → メール確認フロー（`app/auth/callback/route.ts` 実装済み）
+  - **実証**: `admin.createUser` → `handle_new_user` トリガーで profiles 自動生成を確認
 - [x] Pro 購入後 → Supabase RLS でデータ保護（profiles/purchases/learning_records 全テーブル RLS 有効・`auth.uid() = user_id`）
-- [x] `learning_records` テーブルへの書き込み実装 ✅ 2026-06-30
+  - **実証**: 他ユーザーから purchases/learning_records が 0 件・user_id 偽装 insert が RLS で拒否
+- [x] `learning_records` テーブルへの書き込み実装
   - `app/api/learning/route.ts` — POST（認証付き insert / RLS 保護）・GET（自分の記録取得）
   - `lib/learning.ts` — `recordGameResult` がログイン中は `/api/learning` に fire-and-forget 同期
-  - `fetchCloudRecords()` — Pro 統計表示用のサーバー記録取得
-  - build/type-check PASS・`/api/learning` を dynamic route として確認
+  - **実証**: 本人 insert/select 成功・score 値の整合を確認
+- [x] `scripts/verify-auth-flow.js` — 12項目の自動検証スクリプト（**全PASS**）
+- [x] webhook 修正: App Router で無効な `config={api:{bodyParser}}` を削除・`runtime='nodejs'` 明示
+- [x] `recordPurchase()` 冪等化（upsert + ignoreDuplicates）＆ webhook の二重実装(DRY)を解消
+  - **実証**: 同一 stripe_session_id の重複 insert が unique 制約で拒否されることを確認
 
 ### 6. Stripe 本番切替（収益化 GO 判断後）
 ```bash

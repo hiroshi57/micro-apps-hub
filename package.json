@@ -13,7 +13,8 @@
     "apps:note": "node scripts/post-to-note.js",
     "apps:note:dry-run": "node scripts/post-to-note.js --dry-run",
     "apps:instagram": "node scripts/post-to-instagram.js",
-    "apps:instagram:dry-run": "node scripts/post-to-instagram.js --dry-run"
+    "apps:instagram:dry-run": "node scripts/post-to-instagram.js --dry-run",
+    "verify:auth": "node scripts/verify-auth-flow.js"
   },
   "dependencies": {
     "@stripe/stripe-js": "^4.1.0",
