@@ -5,10 +5,10 @@ const SITE_URL = 'https://micro-apps-hub-seven.vercel.app';
 
 export const metadata: Metadata = {
   title: {
-    default: 'MicroApps Hub — 24本のミニアプリ集',
+    default: 'MicroApps Hub — 28本のミニアプリ集',
     template: '%s | MicroApps Hub',
   },
-  description: 'テトリス・数独・将棋など24本のミニアプリ。無料版で試して、気に入ったら買い切りProにアップグレード。',
+  description: 'テトリス・数独・将棋など28本のミニアプリ。無料版で試して、気に入ったら買い切りProにアップグレード。',
   keywords: ['テトリス', '数独', '将棋', 'ゲーム', 'パズル', '集中', '瞑想', 'ポモドーロ'],
   metadataBase: new URL(SITE_URL),
   openGraph: {
