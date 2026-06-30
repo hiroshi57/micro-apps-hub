@@ -44,6 +44,10 @@ const APPS = [
   { slug: 'chess',              emoji: '♛',  title: 'チェス',           desc: '国際チェス。AIとの対局で戦略を磨く。',                           price: 580 },
   { slug: 'othello',            emoji: '⚫', title: 'オセロ',            desc: 'リバーシで頭を使う。AI難易度5段階。',                            price: 380 },
   { slug: 'senior-brain',       emoji: '🧠', title: 'シニア向け脳トレ', desc: '大きな文字・わかりやすい操作の脳活アプリ。',                     price: 480 },
+  { slug: 'flashcard',          emoji: '📖', title: '単語帳メーカー',   desc: '暗記を科学する単語帳アプリ。表裏フリップと正解率管理で効率よく覚える。', price: 480 },
+  { slug: 'quiz-maker',         emoji: '❓', title: 'クイズ作成ツール', desc: '自分だけのクイズを4択で作って解ける。スコア判定つき。',          price: 580 },
+  { slug: 'haiku',              emoji: '🌸', title: '俳句ジェネレーター', desc: '季語からひらめく5-7-5。今日の一句を自動生成。',                  price: 380 },
+  { slug: 'bingo',              emoji: '🎱', title: 'ビンゴカード',     desc: 'みんなで遊べるビンゴ。1-75の番号コールと自動判定つき。',          price: 380 },
 ];
 
 const BASE_URL    = 'https://micro-apps-hub-seven.vercel.app';

@@ -43,6 +43,10 @@ const APPS = [
   { slug: 'chess',              emoji: '♛',  title: 'チェス',           price: 580 },
   { slug: 'othello',            emoji: '⚫', title: 'オセロ',            price: 380 },
   { slug: 'senior-brain',       emoji: '🧠', title: 'シニア向け脳トレ', price: 480 },
+  { slug: 'flashcard',          emoji: '📖', title: '単語帳メーカー',   price: 480 },
+  { slug: 'quiz-maker',         emoji: '❓', title: 'クイズ作成ツール', price: 580 },
+  { slug: 'haiku',              emoji: '🌸', title: '俳句ジェネレーター', price: 380 },
+  { slug: 'bingo',              emoji: '🎱', title: 'ビンゴカード',     price: 380 },
 ];
 
 const BASE_URL   = 'https://micro-apps-hub-seven.vercel.app';
