@@ -73,9 +73,13 @@ X は既に Actions で動いている。Note・Instagram も追加する。
 - [x] `<meta property="og:image">` / Twitter Card 設定済み (`layout.tsx`)
 
 ### 5. ユーザー認証フロー完成
-- [ ] サインアップ → メール確認フロー動作確認
-- [ ] Pro 購入後 → Supabase RLS でデータ保護確認
-- [ ] `learning_records` テーブルへの書き込みテスト
+- [x] サインアップ → メール確認フロー（`app/auth/callback/route.ts` 実装済み・要本番手動確認）
+- [x] Pro 購入後 → Supabase RLS でデータ保護（profiles/purchases/learning_records 全テーブル RLS 有効・`auth.uid() = user_id`）
+- [x] `learning_records` テーブルへの書き込み実装 ✅ 2026-06-30
+  - `app/api/learning/route.ts` — POST（認証付き insert / RLS 保護）・GET（自分の記録取得）
+  - `lib/learning.ts` — `recordGameResult` がログイン中は `/api/learning` に fire-and-forget 同期
+  - `fetchCloudRecords()` — Pro 統計表示用のサーバー記録取得
+  - build/type-check PASS・`/api/learning` を dynamic route として確認
 
 ### 6. Stripe 本番切替（収益化 GO 判断後）
 ```bash
@@ -95,13 +99,19 @@ X は既に Actions で動いている。Note・Instagram も追加する。
 ### 7. TikTok 投稿（既存 src/tiktok/ を活用）
 - アプリのプレイ動画（OBS or Playwright録画）をTikTokに投稿
 
-### 8. アプリ追加候補
-| slug | タイトル | 価格 |
-|------|---------|------|
-| `flashcard` | 単語帳メーカー | ¥480 |
-| `quiz-maker` | クイズ作成ツール | ¥580 |
-| `haiku` | 俳句ジェネレーター | ¥380 |
-| `bingo` | ビンゴカード | ¥380 |
+### 8. アプリ追加候補 ✅ 2026-06-29 完了（本番デプロイ済み）
+| slug | タイトル | 価格 | Stripe Price ID | 状態 |
+|------|---------|------|-----------------|------|
+| `flashcard` | 単語帳メーカー | ¥480 | `price_1TnYsZCnZYbd0wNBoaGqT1uY` | ✅ live |
+| `quiz-maker` | クイズ作成ツール | ¥580 | `price_1TnYz5CnZYbd0wNB1aK4AHXa` | ✅ live |
+| `haiku` | 俳句ジェネレーター | ¥380 | `price_1TnYz6CnZYbd0wNBa7y0cmdH` | ✅ live |
+| `bingo` | ビンゴカード | ¥380 | `price_1TnYz6CnZYbd0wNBsd1wtM4i` | ✅ live |
+
+- [x] `lib/apps-config.ts` に4アプリ登録（freeFeatures / proFeatures 付き）
+- [x] 各アプリの `page.tsx`（無料版ゲーム本体）実装
+- [x] 各アプリの `layout.tsx`（OGP メタ `/api/og/{slug}`）
+- [x] 各アプリの `pro/page.tsx`（Supabase 認証 + Stripe Checkout + 購入後 Pro 機能）
+- [x] 本番デプロイ確認: 全4アプリ `https://micro-apps-hub-seven.vercel.app/apps/{slug}` → 200 OK
 
 ### 9. Analytics ダッシュボード
 - 各アプリの PV・Pro 購入数を可視化

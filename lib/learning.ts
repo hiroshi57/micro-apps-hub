@@ -58,11 +58,80 @@ function saveAllRecords(records: GameRecord[]) {
 /**
  * ゲーム結果を記録する
  * 全ゲームのゲーム終了時に呼ぶ
+ *
+ * - 無料版: localStorage に保存
+ * - Pro版（ログイン中）: Supabase `learning_records` にも同期（fire-and-forget）
  */
 export function recordGameResult(record: Omit<GameRecord, 'playedAt'>) {
+  const playedAt = new Date().toISOString();
   const records = loadAllRecords();
-  records.push({ ...record, playedAt: new Date().toISOString() });
+  records.push({ ...record, playedAt });
   saveAllRecords(records);
+
+  // ログイン中ならサーバーにも同期（失敗しても localStorage 記録は残る）
+  void syncRecordToCloud({ ...record, playedAt });
+}
+
+/**
+ * ログイン中のユーザーの場合のみ学習記録を Supabase に同期する。
+ * 未ログイン・ネットワーク失敗時は静かに諦める（localStorage が真実の源）。
+ */
+export async function syncRecordToCloud(record: GameRecord): Promise<void> {
+  if (typeof window === 'undefined') return;
+
+  try {
+    const { createClient } = await import('./supabase/client');
+    const supabase = createClient();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) return; // 無料版 / 未ログインはスキップ
+
+    await fetch('/api/learning', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(record),
+    });
+  } catch {
+    // 同期失敗は無視（次回プレイ時に再送はしないが localStorage には残る）
+  }
+}
+
+/**
+ * サーバーに保存済みの学習記録を取得する（Pro 向け統計表示用）。
+ * 未ログイン時は null を返す。
+ */
+export async function fetchCloudRecords(slug?: string): Promise<GameRecord[] | null> {
+  if (typeof window === 'undefined') return null;
+
+  try {
+    const url = slug ? `/api/learning?slug=${encodeURIComponent(slug)}` : '/api/learning';
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const data = (await res.json()) as {
+      records: Array<{
+        app_slug: string;
+        score: number;
+        level: number;
+        duration: number;
+        correct: number | null;
+        total: number | null;
+        played_at: string;
+      }>;
+    };
+    return data.records.map((r) => ({
+      slug: r.app_slug,
+      score: r.score,
+      level: r.level,
+      duration: r.duration,
+      correct: r.correct ?? undefined,
+      total: r.total ?? undefined,
+      playedAt: r.played_at,
+    }));
+  } catch {
+    return null;
+  }
 }
 
 // ==============================
