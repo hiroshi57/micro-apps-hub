@@ -15,18 +15,18 @@ import { APPS } from '@/lib/apps-config';
 export const revalidate = 3600; // 1時間キャッシュ
 
 export async function GET() {
-  // 配信スクリプトが必要なフィールドだけ返す（stripePriceId は含めない）
-  const apps = APPS.map((a) => ({
-    slug:          a.slug,
-    title:         a.title,
-    emoji:         a.emoji,
-    category:      a.category,
-    price:         a.price,
-    description:   a.description,
-    freeFeatures:  a.freeFeatures,
-    proFeatures:   a.proFeatures,
-    releaseStatus: a.releaseStatus,
-    color:         a.color,
+  // live 済みのアプリのみ返す（soon アプリはサーバーサイドで除外）
+  // stripePriceId / releaseStatus などの内部フィールドは含めない
+  const apps = APPS.filter((a) => a.releaseStatus === 'live').map((a) => ({
+    slug:         a.slug,
+    title:        a.title,
+    emoji:        a.emoji,
+    category:     a.category,
+    price:        a.price,
+    description:  a.description,
+    freeFeatures: a.freeFeatures,
+    proFeatures:  a.proFeatures,
+    color:        a.color,
   }));
 
   return NextResponse.json(
