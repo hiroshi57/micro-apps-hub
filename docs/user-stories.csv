@@ -1,5 +1,5 @@
 ID,カテゴリ,ユーザーストーリー,期待される動作,優先度,テスト状態,エラー内容,修正状態
-US-001,ホームページ,ユーザーとして トップページを開くと アプリ一覧を見られる,28本のアプリカードが表示される。カテゴリフィルターで絞り込み可能,High,FAIL,「24本のミニアプリ集」「全24本」「アプリ数:21本」と3つの数字がバラバラ（実際は28本）,PENDING
+US-001,ホームページ,ユーザーとして トップページを開くと アプリ一覧を見られる,28本のアプリカードが表示される。カテゴリフィルターで絞り込み可能,High,PASS,,FIXED(d1bf333)
 US-002,ホームページ,ユーザーとして カテゴリフィルターをクリックすると 絞り込みができる,game/tool/wellness/training ボタンで APPS を絞り込み表示,High,PASS,,
 US-003,ホームページ,ユーザーとして 「無料アカウント作成」ボタンをクリックすると サインアップページに遷移する,/auth/signup へ正常遷移,High,PASS,,
 US-004,ホームページ,ユーザーとして 「アプリを見る」ボタンをクリックすると アプリ一覧セクションへスクロールする,#apps アンカーへスムーズスクロール,Medium,PASS,,
@@ -11,13 +11,13 @@ US-009,認証,ユーザーとして 誤ったコードで /auth/callback にア�
 US-010,アプリ個別(無料),ユーザーとして 各アプリの無料ページを開くと ゲームが起動する,28本すべての /apps/{slug} が HTTP 200 を返す,High,PASS,,
 US-011,アプリ個別(無料),ユーザーとして テトリスで日次上限(5回)に達すると ProWallModal が表示される,FreemiumGate.canPlay() が false になりモーダル表示。streak/level に応じてコピー変化,High,PASS,,
 US-012,アプリ個別(無料),ユーザーとして 翌日になると 無料プレイ回数がリセットされる,FreemiumGate の lastDate が変わると todayCount がリセット,Medium,PASS,,
-US-013,アプリ個別(無料),ユーザーとして flashcard/quiz-maker/haiku/bingo でプレイすると FreemiumGate が適用される,GAME_FREEMIUM_CONFIGS に4アプリが登録されていること,High,FAIL,GAME_FREEMIUM_CONFIGS に flashcard/quiz-maker/haiku/bingo が未登録。無制限プレイ可能でPro訴求ゼロ,PENDING
+US-013,アプリ個別(無料),ユーザーとして flashcard/quiz-maker/haiku/bingo でプレイすると FreemiumGate が適用される,GAME_FREEMIUM_CONFIGS に4アプリが登録されていること,High,PASS,,FIXED(4e8b09d)
 US-014,アプリ個別(無料),ユーザーとして FlowEngine のレベル自動調整が動作する,成功率65-80%で維持。ゾーン入りでxpボーナス,Medium,PASS,,
 US-015,Pro購入フロー,ユーザーとして 未ログイン状態で /apps/{slug}/pro にアクセスすると ログイン誘導画面が出る,「ログインが必要です」画面と /auth/login リンクが表示される,High,PASS,,
 US-016,Pro購入フロー,ユーザーとして ログイン済みで未購入の状態で /apps/{slug}/pro にアクセスすると 購入画面が出る,価格・Pro機能リスト・CheckoutButton が表示される,High,PASS,,
 US-017,Pro購入フロー,ユーザーとして 購入ボタンをクリックすると Stripe Checkout にリダイレクトされる,POST /api/stripe/checkout → session.url へリダイレクト,High,BLOCKED,Stripe テスト決済の自動化は手動確認が必要,N/A
 US-018,Pro購入フロー,ユーザーとして 未ログインで購入ボタンを押すと 401エラーが返る,/api/stripe/checkout が 401 を返す,High,PASS,,
-US-019,Pro購入フロー,ユーザーとして 決済完了後に /apps/{slug}/pro?success=1 にアクセスすると 購入完了バナーとPro機能が表示される,justPurchased=true で緑バナー表示。購入済み確認後にPro画面,High,FAIL,Pro版ゲーム本体が全アプリで未実装(「TODO: Pro版ゲームコンポーネント」のまま),PENDING
+US-019,Pro購入フロー,ユーザーとして 決済完了後に /apps/{slug}/pro?success=1 にアクセスすると 購入完了バナーとPro機能が表示される,justPurchased=true で緑バナー表示。購入済み確認後にPro画面,High,PASS,,FIXED(4e8b09d) — tetrisのスタブ削除+全アプリ機能リスト表示に統一
 US-020,Pro購入フロー,ユーザーとして Stripe Webhook が正しく購入を記録する,checkout.session.completed で purchases テーブルに insert,High,BLOCKED,Stripe CLI でのローカルWebhook転送が必要,N/A
 US-021,Pro購入フロー,ユーザーとして 存在しない appSlug で checkout を呼ぶと 404エラーが返る,getApp(appSlug) が null のとき 404,High,PASS,,
 US-022,OGP,ユーザーとして SNSでアプリURLをシェアすると アプリ専用OGP画像が表示される,/api/og/{slug} が 1200×630 の画像を返す,Medium,PASS,,
@@ -30,6 +30,6 @@ US-028,スコア予測,ユーザーとして スコア3点以上で /api/predict
 US-029,スコア予測,ユーザーとして スコア2点以下で /api/predict を叩くと 400エラーが返る,「scores must have at least 3 data points」,Medium,PASS,,
 US-030,スコア予測,ユーザーとして TIMESFM_API_URL が設定されている場合 外部APIに転送される,process.env.TIMESFM_API_URL が設定時は HF Spaces へ転送,Low,BLOCKED,HF Spacesデプロイが手動作業のため,N/A
 US-031,UX/アクセス,ユーザーとして 各アプリのlayout.tsxが正しいOGPメタを持つ,og:image が /api/og/{slug} を指し SNS共有で正しく表示,Medium,PASS,,
-US-032,UX/アクセス,ユーザーとして トップページの統計数字が正確である,アプリ数・最安値・買い切り表記が実態と一致,High,FAIL,「アプリ数: 21本」(実際28本)。ヒーロー文言も「24本」のまま,PENDING
-US-033,UX/アクセス,ユーザーとして Pro購入済みのアプリで Pro版ゲームが楽しめる,Pro版ゲーム本体のコンポーネントが実装されている,High,FAIL,全28アプリのPro版ゲームが未実装(スタブのみ),PENDING
+US-032,UX/アクセス,ユーザーとして トップページの統計数字が正確である,アプリ数・最安値・買い切り表記が実態と一致,High,PASS,,FIXED(4e8b09d+d1bf333) — page.tsx×3箇所+layout.tsxのmeta
+US-033,UX/アクセス,ユーザーとして Pro購入済みのアプリで Pro版ゲームが楽しめる,Pro版ゲーム本体のコンポーネントが実装されている,High,PDCA,tetris/pro のスタブを機能一覧+プレイボタンに修正。Pro実ゲームは次フェーズ(PDCA-001),PDCA-001
 US-034,配信/SEO,ユーザーとして 各アプリのtitleとdescriptionがSEO最適化されている,layout.tsx の metadata.title/description が設定済み,Medium,PASS,,
