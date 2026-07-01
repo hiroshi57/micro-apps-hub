@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
+import { CheckoutButton } from '@/app/components/CheckoutButton';
 import { createClient } from '@/lib/supabase/server';
 import { hasPurchased } from '@/lib/purchases';
 
@@ -45,15 +46,7 @@ export default async function Game2048ProPage({
             <li className="flex items-center gap-2"><span className="text-pro-400">\u2605</span> AI自動プレイ観戦</li>
             <li className="flex items-center gap-2"><span className="text-pro-400">&#9733;</span> 永久利用・買い切り</li>
           </ul>
-          <form action="/api/stripe/checkout" method="POST">
-            <input type="hidden" name="appSlug" value="2048" />
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-yellow-600 to-amber-500 hover:opacity-90 text-white font-bold py-4 px-8 rounded-full text-lg transition-all"
-            >
-              ¥380 で Pro を購入（買い切り）
-            </button>
-          </form>
+          <CheckoutButton appSlug="2048" price={380} />
           <Link href="/apps/2048" className="block mt-3 text-gray-500 text-sm hover:text-white transition-colors">
             無料版に戻る
           </Link>

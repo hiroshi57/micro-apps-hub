@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
+import { CheckoutButton } from '@/app/components/CheckoutButton';
 import { createClient } from '@/lib/supabase/server';
 import { hasPurchased } from '@/lib/purchases';
 
@@ -35,12 +36,7 @@ export default async function ProPage({ searchParams }: { searchParams: Promise<
           <li className="flex items-center gap-2"><span className="text-pro-400">★</span> 学習統計</li>
           <li className="flex items-center gap-2"><span className="text-pro-400">★</span> 永久利用・買い切り</li>
         </ul>
-        <form action="/api/stripe/checkout" method="POST">
-          <input type="hidden" name="appSlug" value="flashcard" />
-          <button type="submit" className="w-full bg-gradient-to-r from-orange-500 to-amber-400 hover:opacity-90 text-white font-bold py-4 px-8 rounded-full text-lg">
-            ¥480 で Pro を購入（買い切り）
-          </button>
-        </form>
+        <CheckoutButton appSlug="flashcard" price={480} />
         <Link href="/apps/flashcard" className="block mt-3 text-gray-500 text-sm hover:text-white">無料版に戻る</Link>
       </div>
     </main>

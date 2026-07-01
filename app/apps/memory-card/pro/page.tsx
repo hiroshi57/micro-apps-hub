@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
+import { CheckoutButton } from '@/app/components/CheckoutButton';
 import { createClient } from '@/lib/supabase/server';
 import { hasPurchased } from '@/lib/purchases';
 
@@ -45,15 +46,7 @@ export default async function MemoryCardProPage({
             <li className="flex items-center gap-2"><span className="text-pro-400">\u2605</span> 2人対戦モード</li>
             <li className="flex items-center gap-2"><span className="text-pro-400">&#9733;</span> 永久利用・買い切り</li>
           </ul>
-          <form action="/api/stripe/checkout" method="POST">
-            <input type="hidden" name="appSlug" value="memory-card" />
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-pink-600 to-rose-500 hover:opacity-90 text-white font-bold py-4 px-8 rounded-full text-lg transition-all"
-            >
-              ¥380 で Pro を購入（買い切り）
-            </button>
-          </form>
+          <CheckoutButton appSlug="memory-card" price={380} />
           <Link href="/apps/memory-card" className="block mt-3 text-gray-500 text-sm hover:text-white transition-colors">
             無料版に戻る
           </Link>

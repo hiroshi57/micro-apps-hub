@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
+import { CheckoutButton } from '@/app/components/CheckoutButton';
 import { createClient } from '@/lib/supabase/server';
 import { hasPurchased } from '@/lib/purchases';
 
@@ -60,15 +61,7 @@ export default async function SeniorBrainProPage({
               </li>
             ))}
           </ul>
-          <form action="/api/stripe/checkout" method="POST">
-            <input type="hidden" name="appSlug" value="senior-brain" />
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-green-600 to-teal-500 hover:from-green-500 hover:to-teal-400 text-white font-bold py-5 px-8 rounded-2xl text-2xl transition-all shadow-lg"
-            >
-              ¥680 で Pro を購入（買い切り）
-            </button>
-          </form>
+          <CheckoutButton appSlug="senior-brain" price={680} />
           <Link
             href="/apps/senior-brain"
             className="block mt-4 text-gray-500 text-base hover:text-white transition-colors"

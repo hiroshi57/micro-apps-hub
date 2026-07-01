@@ -121,7 +121,7 @@ US-119,global,auth,rls_protection,別ユーザーとして 他ユーザーの pu
 US-120,global,infrastructure,404,ユーザーとして 存在しないアプリ /apps/unknown にアクセスしたとき 404 ページが表示される,Next.js not-found.tsx / 404 ステータス返却,/apps/unknown-app,PASS,HTTP 404 確認 / /apps/unknown-app → 404,MED
 US-121,tetris,game,flow_engine,テトリスユーザーとして FlowEngine が動いているとき 成功率65〜80%になるよう難易度が自動調整される,連続失敗でレベルが下がる / 連続成功でレベルが上がる,/apps/tetris,CODE_REVIEW,FlowEngine の難易度調整 / onCorrect/onWrong 実装確認,LOW
 US-122,global,infrastructure,vercel_deploy,開発者として GitHub の master ブランチに push したとき Vercel が自動デプロイされる,Vercel の Deployment が Ready ステータスになる,https://vercel.com/dashboard,UNTESTED,GitHub → Vercel 自動デプロイ / Vercel Dashboard 確認必要,HIGH
-US-123,global,infrastructure,og_all_apps,28アプリ全て SNSBot として /api/og/{slug} を順に確認したとき 全て 200 が返る,各スラッグに対応した OGP 画像 / 500 error なし,/api/og/{slug},PARTIAL,28本中10本を確認 / 全て 200 + image/png,HIGH
+US-123,global,infrastructure,og_all_apps,28アプリ全て SNSBot として /api/og/{slug} を順に確認したとき 全て 200 が返る,各スラッグに対応した OGP 画像 / 500 error なし,/api/og/{slug},PASS,28/28本を確認 / 全て HTTP 200 + Content-Type: image/png,HIGH
 US-124,global,infrastructure,page_load_speed,ユーザーとして アプリページを開いたとき 3秒以内にゲームが操作可能になる,LCP < 3.0s / 初回インタラクションまでのブロックなし,/apps/tetris,UNTESTED,LCP 計測 / ブラウザ DevTools 必要,MED
 US-125,global,infrastructure,seo,検索エンジンBot として ページを取得したとき title・description・og:image メタが揃っている,各アプリの layout.tsx で個別メタ設定 / og:image URL 有効,/apps/tetris,PASS,title / description / og:image メタタグ全て確認済み,MED
 US-126,global,auth,protected_pro,未ログインユーザーとして Pro ページに直接アクセスしたとき ログインを促す表示またはリダイレクトがある,Supabase セッションなし → ログインボタン表示,/apps/tetris/pro,PASS,未ログイン → 'ログインが必要です' + 'ログイン / 新規登録' ボタン表示確認,HIGH

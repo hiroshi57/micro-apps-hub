@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
+import { CheckoutButton } from '@/app/components/CheckoutButton';
 import { createClient } from '@/lib/supabase/server';
 import { hasPurchased } from '@/lib/purchases';
 
@@ -45,15 +46,7 @@ export default async function QuoteProPage({
             <li className="flex items-center gap-2"><span className="text-pro-400">\u2605</span> 壁紙ダウンロード(PNG)</li>
             <li className="flex items-center gap-2"><span className="text-pro-400">&#9733;</span> 永久利用・買い切り</li>
           </ul>
-          <form action="/api/stripe/checkout" method="POST">
-            <input type="hidden" name="appSlug" value="quote" />
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-violet-600 to-purple-500 hover:opacity-90 text-white font-bold py-4 px-8 rounded-full text-lg transition-all"
-            >
-              ¥380 で Pro を購入（買い切り）
-            </button>
-          </form>
+          <CheckoutButton appSlug="quote" price={380} />
           <Link href="/apps/quote" className="block mt-3 text-gray-500 text-sm hover:text-white transition-colors">
             無料版に戻る
           </Link>
