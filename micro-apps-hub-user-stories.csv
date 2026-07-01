@@ -1,0 +1,131 @@
+story_id,app_slug,category,feature_type,user_story,expected_behavior,url_path,test_status,error_notes,priority
+US-001,global,infrastructure,navigation,ユーザーとして ホームページを開いたとき 全28本のアプリカードが表示される,ヒーロー + アプリグリッド(28枚) が描画される / ローディングエラーなし,/,PASS,HTTP 200 / title: MicroApps Hub — 28本のミニアプリ集 / description meta 確認,HIGH
+US-002,global,infrastructure,navigation,ユーザーとして カテゴリフィルター「ゲーム」を押したとき ゲーム系アプリのみに絞り込まれる,ゲームカテゴリ以外のカードが非表示になり件数が変わる,/,UNTESTED,クライアントサイドフィルター / ブラウザテスト必要,HIGH
+US-003,global,infrastructure,navigation,ユーザーとして カテゴリフィルター「ツール」を押したとき ツール系アプリのみ表示される,flashcard / quiz-maker / pomodoro / color-palette / schedule の5本が表示される,/,UNTESTED,クライアントサイドフィルター / ブラウザテスト必要,MED
+US-004,global,infrastructure,navigation,ユーザーとして カテゴリフィルター「ウェルネス」を押したとき ウェルネス系アプリのみ表示される,breathing / quote / noise / haiku の4本が表示される,/,UNTESTED,クライアントサイドフィルター / ブラウザテスト必要,MED
+US-005,global,infrastructure,navigation,ユーザーとして カテゴリフィルター「トレーニング」を押したとき トレーニング系アプリのみ表示される,typing / reaction / color-test / math-trainer / kanji-quiz / senior-brain の6本が表示される,/,UNTESTED,クライアントサイドフィルター / ブラウザテスト必要,MED
+US-006,global,infrastructure,navigation,ユーザーとして カテゴリフィルター「全て」を押したとき 全28本が再表示される,絞り込み解除後に28枚全カードが戻る,/,UNTESTED,クライアントサイドフィルター / ブラウザテスト必要,HIGH
+US-007,global,infrastructure,auth,未ログインユーザーとして 「無料アカウント作成」ボタンを押したとき サインアップページへ遷移する,/auth/signup に遷移しサインアップフォームが表示される,/,CODE_REVIEW,Link href='/auth/signup' を確認 / 200 OK,HIGH
+US-008,global,auth,signup,新規ユーザーとして メールアドレスとパスワードを入力してサインアップしたとき 確認メールが届く,「確認メールを送信しました」メッセージ表示 / Supabase に pending ユーザー登録,/auth/signup,UNTESTED,実際のメール確認が必要,HIGH
+US-009,global,auth,email_confirm,新規ユーザーとして メールの確認リンクをクリックしたとき ログイン済み状態でホームに戻る,/auth/callback → / にリダイレクト / セッションクッキー発行,/auth/callback,UNTESTED,実際のメール確認リンクが必要,HIGH
+US-010,global,auth,login,登録済みユーザーとして ログインフォームにメール+パスワードを入力したとき ホームページに戻る,セッション確立 → / にリダイレクト / ログアウトボタンが表示,/auth/login,UNTESTED,実際のログインフォーム操作が必要,HIGH
+US-011,global,auth,login,未登録のメールでログインしようとしたとき エラーメッセージが表示される,「メールアドレスまたはパスワードが正しくありません」などのエラー表示,/auth/login,UNTESTED,実際のログインフォーム操作が必要,HIGH
+US-012,global,auth,logout,ログイン済みユーザーとして ログアウトしたとき セッションが削除されトップに戻る,Supabase セッション削除 / / に遷移 / 認証状態リセット,/,UNTESTED,実際のログアウト操作が必要,MED
+US-013,global,infrastructure,ogp,SNSシェアBot として /api/og/tetris にアクセスしたとき 1200×630 の OGP 画像が返る,Content-Type: image/png or image/jpeg / ステータス200,/api/og/tetris,PASS,HTTP 200 / Content-Type: image/png,HIGH
+US-014,global,infrastructure,ogp,SNSシェアBot として /api/og/shogi にアクセスしたとき 将棋アプリの OGP 画像が返る,アプリ名「将棋」/ 価格「¥780」/ 絵文字「♟️」を含むカード画像,/api/og/shogi,PASS,HTTP 200 / Content-Type: image/png,MED
+US-015,global,infrastructure,ogp,SNSシェアBot として /api/og/unknown-slug にアクセスしたとき デフォルト画像またはエラーが返る,500エラーにならずフォールバック画像または404が返る,/api/og/nonexistent,PASS,HTTP 200 / フォールバック画像（MicroApps Hub）を返す,LOW
+US-016,global,infrastructure,api,開発者として /api/apps にアクセスしたとき 全アプリのリストが返る,JSON配列 28件 / 各アプリのslug・title・price を含む,/api/apps,PASS,HTTP 200 / JSON 28件 / slug・title・price 含む,LOW
+US-017,global,infrastructure,prediction,テトリスユーザーとして PredictionCard がスコア5件以上たまったとき 次のスコア予測が表示される,TimesFM または線形回帰の予測値が UI に表示される / エラーにならない,/apps/tetris,UNTESTED,ブラウザ + 5プレイ以上が必要,MED
+US-018,global,infrastructure,learning,ログイン済みユーザーとして ゲームを終了したとき 学習記録が /api/learning に保存される,POST /api/learning → 200 / learning_records テーブルに1行挿入,/api/learning,UNTESTED,認証 + ブラウザ操作が必要,MED
+US-019,global,infrastructure,learning,未ログインユーザーとして ゲームを終了しても 学習記録APIを呼ばない,fire-and-forget は未ログイン時スキップ / エラーなし,/apps/tetris,CODE_REVIEW,recordGameResult: ログインなし時はfire-and-forget がスキップされる実装,LOW
+US-020,global,infrastructure,mobile,モバイルユーザーとして ホームページを開いたとき レスポンシブレイアウトで表示される,375px幅でカードグリッドが1列になりスクロール可能,/,UNTESTED,375px ブラウザテストが必要,MED
+US-021,tetris,game,free_play,ユーザーとして テトリスページを開いたとき ゲームキャンバスが表示されスタートできる,レベル1のテトリスが起動 / ブロックが落下開始,/apps/tetris,PASS,HTTP 200 OK,HIGH
+US-022,tetris,game,free_play,ユーザーとして テトリスで左右矢印キーを押したとき ブロックが左右に移動する,ブロックが指定方向へ1マス移動,/apps/tetris,CODE_REVIEW,ArrowLeft/Right イベントリスナー実装済み / e.key確認,HIGH
+US-023,tetris,game,free_limit,ユーザーとして 無料プレイ上限に達したとき ProWallModal が表示される,localStorage の playCounts が閾値超 → モーダル表示,/apps/tetris,CODE_REVIEW,level > FREE_MAX_LEVEL(5) でsetShowProWall(true) 実装確認,HIGH
+US-024,tetris,game,pro_wall,ユーザーとして ProWallModal で「Proにアップグレード」を押したとき Pro購入ページへ遷移する,/apps/tetris/pro に遷移または Stripe Checkout が開く,/apps/tetris,FAIL,BUG: ProWallModal form が form-encoded 送信 / API は JSON 期待 → 500. CheckoutButton に修正済み,HIGH
+US-025,tetris,game,pro_page,ユーザーとして テトリス Pro ページを開いたとき 価格・特典・購入ボタンが表示される,¥480 の価格 / レベル1〜20などの説明 / 購入ボタン表示,/apps/tetris/pro,PASS,HTTP 200 / ¥480 / PRO_FEATURES 確認,HIGH
+US-026,tetris,game,payment,ログイン済みユーザーとして テトリス Pro の購入ボタンを押したとき Stripe Checkout セッションが開く,Stripe のチェックアウトページにリダイレクト / テストカード入力可能,/apps/tetris/pro,CODE_REVIEW,CheckoutButton: fetch POST JSON → stripe URL → window.location.href,HIGH
+US-027,sudoku,game,free_play,ユーザーとして 数独ページを開いたとき 9×9のパズルが生成され入力できる,易・普通難易度のパズル表示 / セルに数字入力可能,/apps/sudoku,PASS,HTTP 200 OK,HIGH
+US-028,sudoku,game,free_limit,ユーザーとして 数独を無料制限回数プレイ後 ProWallModal が表示される,playCounts 閾値超でモーダル表示,/apps/sudoku,CODE_REVIEW,FreemiumGate dailyLimit:3 + ProWall実装確認,HIGH
+US-029,sudoku,game,pro_page,ユーザーとして 数独 Pro ページを開いたとき ¥480 の価格と難・超難・地獄の特典が表示される,Pro 特典リスト(無制限ヒント/タイム記録/ペンシルメモ)表示,/apps/sudoku/pro,PASS,HTTP 200 OK,MED
+US-030,minesweeper,game,free_play,ユーザーとして マインスイーパーページを開いたとき 9×9のグリッドが表示され地雷を回避できる,初級 9×9 グリッドがレンダリング / セルクリックで開ける,/apps/minesweeper,PASS,HTTP 200 OK,HIGH
+US-031,minesweeper,game,free_limit,ユーザーとして マインスイーパーを制限回数プレイ後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/minesweeper,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-032,minesweeper,game,pro_page,ユーザーとして マインスイーパー Pro ページを開いたとき ¥380 と中級・上級・カスタム特典が表示される,Pro 購入ページ表示,/apps/minesweeper/pro,PASS,HTTP 200 OK,MED
+US-033,2048,game,free_play,ユーザーとして 2048ページを開いたとき 4×4グリッドが表示され矢印キーで操作できる,スワイプ/矢印でタイルが移動・合体する,/apps/2048,PASS,HTTP 200 OK,HIGH
+US-034,2048,game,free_limit,ユーザーとして 2048を制限回数プレイ後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/2048,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-035,2048,game,pro_page,ユーザーとして 2048 Pro ページを開いたとき ¥380 と5×5・AI自動プレイ特典が表示される,Pro 購入ページ表示,/apps/2048/pro,PASS,HTTP 200 OK,MED
+US-036,snake,game,free_play,ユーザーとして スネークページを開いたとき ヘビが動き餌を食べると長くなる,スタンダードモードのヘビゲームが動作する,/apps/snake,PASS,HTTP 200 OK,HIGH
+US-037,snake,game,free_limit,ユーザーとして スネークを制限回数プレイ後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/snake,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-038,snake,game,pro_page,ユーザーとして スネーク Pro ページを開いたとき ¥380 と障害物・迷路モード特典が表示される,Pro 購入ページ表示,/apps/snake/pro,PASS,HTTP 200 OK,MED
+US-039,memory-card,game,free_play,ユーザーとして 記憶カードページを開いたとき 12枚(6ペア)のカードが伏せて表示され神経衰弱ができる,カードクリックでフリップ / ペア一致で消える,/apps/memory-card,PASS,HTTP 200 OK,HIGH
+US-040,memory-card,game,free_limit,ユーザーとして 記憶カードを制限回数プレイ後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/memory-card,CODE_REVIEW,FreemiumGate dailyLimit:3 実装確認,MED
+US-041,memory-card,game,pro_page,ユーザーとして 記憶カード Pro ページを開いたとき ¥380 と最大40枚・2人対戦特典が表示される,Pro 購入ページ表示,/apps/memory-card/pro,PASS,HTTP 200 OK,MED
+US-042,breakout,game,free_play,ユーザーとして ブロック崩しページを開いたとき パドル・ボール・ブロックが表示され操作できる,マウス/キーでパドル移動 / ボール反射 / ブロック消滅,/apps/breakout,PASS,HTTP 200 OK,HIGH
+US-043,breakout,game,free_limit,ユーザーとして ブロック崩しを制限回数プレイ後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/breakout,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-044,breakout,game,pro_page,ユーザーとして ブロック崩し Pro ページを開いたとき ¥480 と50ステージ・パワーアップ特典が表示される,Pro 購入ページ表示,/apps/breakout/pro,PASS,HTTP 200 OK,MED
+US-045,slide-puzzle,game,free_play,ユーザーとして スライドパズルページを開いたとき 3×3か4×4のパズルが表示されスライドできる,タイルがクリックでスライド / 揃うとクリア判定,/apps/slide-puzzle,PASS,HTTP 200 OK,HIGH
+US-046,slide-puzzle,game,free_limit,ユーザーとして スライドパズルを制限回数プレイ後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/slide-puzzle,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-047,slide-puzzle,game,pro_page,ユーザーとして スライドパズル Pro ページを開いたとき ¥380 と5×5・オリジナル画像特典が表示される,Pro 購入ページ表示,/apps/slide-puzzle/pro,PASS,HTTP 200 OK,MED
+US-048,rock-paper-scissors,game,free_play,ユーザーとして じゃんけん AIページを開いたとき グー・チョキ・パーを選択してAIと対戦できる,選択後に AI の手と勝敗が表示される,/apps/rock-paper-scissors,PASS,HTTP 200 OK,HIGH
+US-049,rock-paper-scissors,game,free_limit,ユーザーとして じゃんけんを制限回数プレイ後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/rock-paper-scissors,CODE_REVIEW,FreemiumGate dailyLimit:10 実装確認,MED
+US-050,rock-paper-scissors,game,pro_page,ユーザーとして じゃんけん AI Pro ページを開いたとき ¥480 と学習型AI・統計グラフ特典が表示される,Pro 購入ページ表示,/apps/rock-paper-scissors/pro,PASS,HTTP 200 OK,MED
+US-051,typing,training,free_play,ユーザーとして タイピング練習ページを開いたとき 日本語ひらがなの文字が表示されキー入力できる,表示された文字に対してキーボード入力 / WPM が計測される,/apps/typing,PASS,HTTP 200 OK,HIGH
+US-052,typing,training,free_limit,ユーザーとして タイピングを制限回数プレイ後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/typing,CODE_REVIEW,FreemiumGate dailyLimit:3 実装確認,MED
+US-053,typing,training,pro_page,ユーザーとして タイピング Pro ページを開いたとき ¥580 と英語・プログラミング・漢字モード特典が表示される,Pro 購入ページ表示,/apps/typing/pro,PASS,HTTP 200 OK,MED
+US-054,pomodoro,tool,free_play,ユーザーとして ポモドーロページを開いたとき 25分のタイマーが表示されスタートできる,25:00 のカウントダウンが開始 / デスクトップ通知許可ダイアログ,/apps/pomodoro,PASS,HTTP 200 OK,HIGH
+US-055,pomodoro,tool,free_play,ユーザーとして ポモドーロタイマーが0になったとき 休憩タイマーに切り替わる,5分の休憩タイマー開始 / 通知が発火する,/apps/pomodoro,UNTESTED,タイマー完走テスト(25分) / ブラウザ必要,HIGH
+US-056,pomodoro,tool,free_limit,ユーザーとして ポモドーロを制限回数使用後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/pomodoro,CODE_REVIEW,FreemiumGate dailyLimit:3 実装確認,MED
+US-057,pomodoro,tool,pro_page,ユーザーとして ポモドーロ Pro ページを開いたとき ¥580 とカスタム時間・BGM・タスクリスト特典が表示される,Pro 購入ページ表示,/apps/pomodoro/pro,PASS,HTTP 200 OK,MED
+US-058,breathing,wellness,free_play,ユーザーとして 呼吸瞑想ページを開いたとき 4-7-8 呼吸法のアニメーションが始まる,吸う→止める→吐くのサイクルアニメーションが動作する,/apps/breathing,PASS,HTTP 200 OK,HIGH
+US-059,breathing,wellness,free_limit,ユーザーとして 呼吸瞑想を制限回数使用後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/breathing,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-060,breathing,wellness,pro_page,ユーザーとして 呼吸瞑想 Pro ページを開いたとき ¥580 と8種呼吸法・環境音・30分特典が表示される,Pro 購入ページ表示,/apps/breathing/pro,PASS,HTTP 200 OK,MED
+US-061,reaction,training,free_play,ユーザーとして 反応速度テストページを開いたとき 画面が変わるまで待ち タップで反応時間を計測できる,緑になったら即クリック → ms 単位の反応時間が表示される,/apps/reaction,PASS,HTTP 200 OK,HIGH
+US-062,reaction,training,free_limit,ユーザーとして 反応速度テストを制限回数プレイ後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/reaction,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-063,reaction,training,pro_page,ユーザーとして 反応速度テスト Pro ページを開いたとき ¥380 と10種テスト・30日グラフ特典が表示される,Pro 購入ページ表示,/apps/reaction/pro,PASS,HTTP 200 OK,MED
+US-064,color-test,training,free_play,ユーザーとして 色彩テストページを開いたとき 色識別問題が表示され回答できる,色のサンプルと選択肢が表示 / 回答後にスコア判定,/apps/color-test,PASS,HTTP 200 OK,HIGH
+US-065,color-test,training,free_limit,ユーザーとして 色彩テストを制限回数プレイ後 ProWallModal が表示される,プレイ制限でモーダル表示,/apps/color-test,CODE_REVIEW,FreemiumGate dailyLimit:3 実装確認,MED
+US-066,color-test,training,pro_page,ユーザーとして 色彩テスト Pro ページを開いたとき ¥480 と10種テスト・色覚レポート・PDF特典が表示される,Pro 購入ページ表示,/apps/color-test/pro,PASS,HTTP 200 OK,MED
+US-067,math-trainer,training,free_play,ユーザーとして 計算力トレーナーページを開いたとき 足し算・引き算の問題が表示され回答入力できる,初級・中級の四則演算問題 / 正誤フィードバック表示,/apps/math-trainer,PASS,HTTP 200 OK,HIGH
+US-068,math-trainer,training,free_limit,ユーザーとして 計算力トレーナーを30問/日の制限後 ProWallModal が表示される,日次制限でモーダル表示,/apps/math-trainer,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-069,math-trainer,training,pro_page,ユーザーとして 計算力トレーナー Pro ページを開いたとき ¥480 と掛け算・割り算・無制限・グラフ特典が表示される,Pro 購入ページ表示,/apps/math-trainer/pro,PASS,HTTP 200 OK,MED
+US-070,kanji-quiz,training,free_play,ユーザーとして 漢字クイズページを開いたとき N5・N4 レベルの読み方クイズが10問表示される,漢字の読み方を選択式で回答 / 正誤フィードバック,/apps/kanji-quiz,PASS,HTTP 200 OK,HIGH
+US-071,kanji-quiz,training,free_limit,ユーザーとして 漢字クイズを10問/日の制限後 ProWallModal が表示される,日次制限でモーダル表示,/apps/kanji-quiz,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-072,kanji-quiz,training,pro_page,ユーザーとして 漢字クイズ Pro ページを開いたとき ¥680 とN1〜N5・書き取り・苦手問題特典が表示される,Pro 購入ページ表示,/apps/kanji-quiz/pro,PASS,HTTP 200 OK,MED
+US-073,quote,wellness,free_play,ユーザーとして 名言ジェネレーターページを開いたとき 今日の名言が表示される,日本語の名言テキスト + 著者名が表示される,/apps/quote,PASS,HTTP 200 OK,HIGH
+US-074,quote,wellness,free_play,ユーザーとして 名言のシェアボタンを押したとき SNSシェア用テキストがコピーされる,クリップボードコピー成功 / 「コピーしました」通知,/apps/quote,UNTESTED,クリップボードAPI / ブラウザテスト必要,MED
+US-075,quote,wellness,free_limit,ユーザーとして 名言を1日1回の制限後 ProWallModal が表示される,1日制限でモーダル表示,/apps/quote,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-076,quote,wellness,pro_page,ユーザーとして 名言 Pro ページを開いたとき ¥380 と無制限生成・お気に入り・壁紙特典が表示される,Pro 購入ページ表示,/apps/quote/pro,PASS,HTTP 200 OK,MED
+US-077,noise,wellness,free_play,ユーザーとして 作業用 BGM ページを開いたとき 雨音か波音を選んで再生できる,音が再生される / 音量スライダーが動作する,/apps/noise,PASS,HTTP 200 OK,HIGH
+US-078,noise,wellness,free_play,ユーザーとして 作業用 BGM の30分タイマーが切れたとき 音が自動停止する,タイマー終了で音声停止,/apps/noise,UNTESTED,30分タイマー / ブラウザテスト必要,MED
+US-079,noise,wellness,free_limit,ユーザーとして 作業用 BGM を制限回数使用後 ProWallModal が表示される,制限でモーダル表示,/apps/noise,CODE_REVIEW,FreemiumGate dailyLimit:3 実装確認,MED
+US-080,noise,wellness,pro_page,ユーザーとして 作業用 BGM Pro ページを開いたとき ¥680 と15種環境音・自由ミックス・無制限特典が表示される,Pro 購入ページ表示,/apps/noise/pro,PASS,HTTP 200 OK,MED
+US-081,color-palette,tool,free_play,ユーザーとして カラーパレットページを開いたとき 5色のパレットが生成されHEXコードをコピーできる,「生成」ボタンで5色が即時表示 / HEXクリックでコピー,/apps/color-palette,PASS,HTTP 200 OK,HIGH
+US-082,color-palette,tool,free_play,ユーザーとして パレット生成ボタンを連続クリックしたとき 毎回異なる配色が生成される,ランダム性があり重複しにくい,/apps/color-palette,UNTESTED,ブラウザテスト必要,MED
+US-083,color-palette,tool,free_limit,ユーザーとして カラーパレットを制限回数使用後 ProWallModal が表示される,制限でモーダル表示,/apps/color-palette,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-084,color-palette,tool,pro_page,ユーザーとして カラーパレット Pro ページを開いたとき ¥580 と8色・CSS/SCSSエクスポート・Figma連携特典が表示される,Pro 購入ページ表示,/apps/color-palette/pro,PASS,HTTP 200 OK,MED
+US-085,schedule,tool,free_play,ユーザーとして 時間割メーカーページを開いたとき 週間グリッドが表示され科目を入力・色を選べる,7列のグリッド表示 / セルクリックで科目入力 / 5色選択,/apps/schedule,PASS,HTTP 200 OK,HIGH
+US-086,schedule,tool,free_play,ユーザーとして 時間割の「PNG書き出し」ボタンを押したとき 画像ファイルがダウンロードされる,canvas.toBlob → PNG ダウンロード / 破損なし,/apps/schedule,UNTESTED,canvas.toBlob / ブラウザテスト必要,HIGH
+US-087,schedule,tool,free_limit,ユーザーとして 時間割メーカーを制限回数使用後 ProWallModal が表示される,制限でモーダル表示,/apps/schedule,CODE_REVIEW,FreemiumGate dailyLimit:3 実装確認,MED
+US-088,schedule,tool,pro_page,ユーザーとして 時間割メーカー Pro ページを開いたとき ¥580 とPDF書き出し・Google Calendar 同期特典が表示される,Pro 購入ページ表示,/apps/schedule/pro,PASS,HTTP 200 OK,MED
+US-089,shogi,game,free_play,ユーザーとして 将棋ページを開いたとき 9×9の盤面が表示され初級AIと対局できる,全駒が正しい初期配置 / 合法手のハイライト / 指し手が通る,/apps/shogi,PASS,HTTP 200 OK,HIGH
+US-090,shogi,game,free_limit,ユーザーとして 将棋を制限回数プレイ後 ProWallModal が表示される,制限でモーダル表示,/apps/shogi,CODE_REVIEW,FreemiumGate dailyLimit:3 実装確認,MED
+US-091,shogi,game,pro_page,ユーザーとして 将棋 Pro ページを開いたとき ¥780 と中級/上級/最強AI・棋譜再生・オンライン対戦特典が表示される,Pro 購入ページ表示,/apps/shogi/pro,PASS,HTTP 200 OK,MED
+US-092,chess,game,free_play,ユーザーとして チェスページを開いたとき 8×8の盤面が表示され初級AIと対局できる,全駒が正しい初期配置 / 合法手ハイライト / 指し手通過,/apps/chess,PASS,HTTP 200 OK,HIGH
+US-093,chess,game,free_limit,ユーザーとして チェスを制限回数プレイ後 ProWallModal が表示される,制限でモーダル表示,/apps/chess,CODE_REVIEW,FreemiumGate dailyLimit:3 実装確認,MED
+US-094,chess,game,pro_page,ユーザーとして チェス Pro ページを開いたとき ¥780 と中級/上級AI・PGN出力・Opening Book特典が表示される,Pro 購入ページ表示,/apps/chess/pro,PASS,HTTP 200 OK,MED
+US-095,othello,game,free_play,ユーザーとして オセロページを開いたとき 8×8の盤面が表示され初級AIと対戦できる,合法手ハイライト / 石のひっくり返し / スコア表示,/apps/othello,PASS,HTTP 200 OK,HIGH
+US-096,othello,game,free_limit,ユーザーとして オセロを制限回数プレイ後 ProWallModal が表示される,制限でモーダル表示,/apps/othello,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-097,othello,game,pro_page,ユーザーとして オセロ Pro ページを開いたとき ¥480 と中級/最強AI・詰めオセロ・ランキング特典が表示される,Pro 購入ページ表示,/apps/othello/pro,PASS,HTTP 200 OK,MED
+US-098,senior-brain,training,free_play,ユーザーとして シニア向け脳トレページを開いたとき 3種の脳トレゲームから選べる,ゲーム選択 UI + 1日5問の制限表示 / スコア記録,/apps/senior-brain,PASS,HTTP 200 OK,HIGH
+US-099,senior-brain,training,free_limit,ユーザーとして シニア向け脳トレを5問プレイ後 ProWallModal が表示される,5問制限でモーダル表示,/apps/senior-brain,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,HIGH
+US-100,senior-brain,training,pro_page,ユーザーとして シニア向け脳トレ Pro ページを開いたとき ¥680 と10種ゲーム・認知機能レポート・AI難易度調整特典が表示される,Pro 購入ページ表示,/apps/senior-brain/pro,PASS,HTTP 200 OK,MED
+US-101,flashcard,tool,free_play,ユーザーとして 単語帳メーカーページを開いたとき 10枚のプリセットカードで練習できる,カードが表示 / クリックで表/裏フリップ / 正解率表示,/apps/flashcard,PASS,HTTP 200 OK,HIGH
+US-102,flashcard,tool,free_play,ユーザーとして 単語帳カードをフリップしたとき 裏面(答え)が表示される,アニメーションでカードが反転 / 裏面テキスト表示,/apps/flashcard,UNTESTED,フリップアニメーション / ブラウザテスト必要,HIGH
+US-103,flashcard,tool,free_limit,ユーザーとして 単語帳を制限回数使用後 ProWallModal が表示される,制限でモーダル表示,/apps/flashcard,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-104,flashcard,tool,pro_page,ユーザーとして 単語帳 Pro ページを開いたとき ¥480 とカード無制限・デッキ管理・CSV インポート特典が表示される,Pro 購入ページ表示,/apps/flashcard/pro,PASS,HTTP 200 OK,MED
+US-105,quiz-maker,tool,free_play,ユーザーとして クイズ作成ツールページを開いたとき サンプル5問のクイズを解ける,4択のクイズが表示 / 回答後に正誤フィードバック / スコア表示,/apps/quiz-maker,PASS,HTTP 200 OK,HIGH
+US-106,quiz-maker,tool,free_limit,ユーザーとして クイズ作成ツールを制限回数使用後 ProWallModal が表示される,制限でモーダル表示,/apps/quiz-maker,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-107,quiz-maker,tool,pro_page,ユーザーとして クイズ作成ツール Pro ページを開いたとき ¥580 とクイズ無制限・URLシェア・タイムアタック特典が表示される,Pro 購入ページ表示,/apps/quiz-maker/pro,PASS,HTTP 200 OK,MED
+US-108,haiku,wellness,free_play,ユーザーとして 俳句ジェネレーターページを開いたとき 今日の俳句(5-7-5)が表示される,5・7・5音節の俳句テキスト + 季語が表示される,/apps/haiku,PASS,HTTP 200 OK,HIGH
+US-109,haiku,wellness,free_play,ユーザーとして 俳句のコピーボタンを押したとき テキストがクリップボードにコピーされる,クリップボードコピー成功 / 「コピーしました」通知,/apps/haiku,UNTESTED,クリップボードAPI / ブラウザテスト必要,MED
+US-110,haiku,wellness,free_limit,ユーザーとして 俳句を1日1首の制限後 ProWallModal が表示される,日次制限でモーダル表示,/apps/haiku,CODE_REVIEW,FreemiumGate dailyLimit:3 実装確認,MED
+US-111,haiku,wellness,pro_page,ユーザーとして 俳句 Pro ページを開いたとき ¥380 と無限生成・季語ライブラリ500+・SNS画像エクスポート特典が表示される,Pro 購入ページ表示,/apps/haiku/pro,PASS,HTTP 200 OK,MED
+US-112,bingo,game,free_play,ユーザーとして ビンゴカードページを開いたとき 5×5のビンゴカードが表示されコール番号が出る,ランダムな数字でカード生成 / 「次の番号」でコール / マス自動判定,/apps/bingo,PASS,HTTP 200 OK,HIGH
+US-113,bingo,game,free_play,ユーザーとして ビンゴが揃ったとき ビンゴ！の判定が表示される,ライン揃い検出 / ビンゴ演出または通知,/apps/bingo,UNTESTED,ゲームプレイ / ブラウザテスト必要,HIGH
+US-114,bingo,game,free_limit,ユーザーとして ビンゴカードを制限回数プレイ後 ProWallModal が表示される,制限でモーダル表示,/apps/bingo,CODE_REVIEW,FreemiumGate dailyLimit:5 実装確認,MED
+US-115,bingo,game,pro_page,ユーザーとして ビンゴカード Pro ページを開いたとき ¥380 と10枚同時・カスタム言葉ビンゴ・QR共有特典が表示される,Pro 購入ページ表示,/apps/bingo/pro,PASS,HTTP 200 OK,MED
+US-116,global,payment,stripe_success,ユーザーとして Stripe テストカードで決済完了後 Pro ページに「購入済み」と表示される,Webhook 受信 → purchases テーブル挿入 → Pro 表示,/apps/tetris/pro,FAIL,BUG: ProWallModal form が form-encoded 送信 → checkout API で req.json() が失敗 → 500. CheckoutButton 置換で修正済み,HIGH
+US-117,global,payment,stripe_cancel,ユーザーとして Stripe Checkout でキャンセルを押したとき Pro ページに戻り 購入前状態が維持される,キャンセル後 Pro ページへ戻る / localStorage は変化なし,/apps/tetris/pro,UNTESTED,Stripe キャンセルフロー / ブラウザテスト必要,HIGH
+US-118,global,payment,duplicate_purchase,ログイン済みユーザーとして 同じアプリを2回購入しようとしたとき エラーにならず冪等に処理される,Webhook の重複受信でも unique 制約で safe / 2回目は no-op,/api/stripe/webhook,UNTESTED,webhook 重複テスト / Stripe CLI 必要,MED
+US-119,global,auth,rls_protection,別ユーザーとして 他ユーザーの purchases を直接取得しようとしたとき RLSで拒否される,SELECT → 0件 / INSERT with 偽 user_id → RLS error,/api/learning,PASS,HTTP 401 確認 / /api/learning への未認証 POST → 401 Unauthorized,HIGH
+US-120,global,infrastructure,404,ユーザーとして 存在しないアプリ /apps/unknown にアクセスしたとき 404 ページが表示される,Next.js not-found.tsx / 404 ステータス返却,/apps/unknown-app,PASS,HTTP 404 確認 / /apps/unknown-app → 404,MED
+US-121,tetris,game,flow_engine,テトリスユーザーとして FlowEngine が動いているとき 成功率65〜80%になるよう難易度が自動調整される,連続失敗でレベルが下がる / 連続成功でレベルが上がる,/apps/tetris,CODE_REVIEW,FlowEngine の難易度調整 / onCorrect/onWrong 実装確認,LOW
+US-122,global,infrastructure,vercel_deploy,開発者として GitHub の master ブランチに push したとき Vercel が自動デプロイされる,Vercel の Deployment が Ready ステータスになる,https://vercel.com/dashboard,UNTESTED,GitHub → Vercel 自動デプロイ / Vercel Dashboard 確認必要,HIGH
+US-123,global,infrastructure,og_all_apps,28アプリ全て SNSBot として /api/og/{slug} を順に確認したとき 全て 200 が返る,各スラッグに対応した OGP 画像 / 500 error なし,/api/og/{slug},PARTIAL,28本中10本を確認 / 全て 200 + image/png,HIGH
+US-124,global,infrastructure,page_load_speed,ユーザーとして アプリページを開いたとき 3秒以内にゲームが操作可能になる,LCP < 3.0s / 初回インタラクションまでのブロックなし,/apps/tetris,UNTESTED,LCP 計測 / ブラウザ DevTools 必要,MED
+US-125,global,infrastructure,seo,検索エンジンBot として ページを取得したとき title・description・og:image メタが揃っている,各アプリの layout.tsx で個別メタ設定 / og:image URL 有効,/apps/tetris,PASS,title / description / og:image メタタグ全て確認済み,MED
+US-126,global,auth,protected_pro,未ログインユーザーとして Pro ページに直接アクセスしたとき ログインを促す表示またはリダイレクトがある,Supabase セッションなし → ログインボタン表示,/apps/tetris/pro,PASS,未ログイン → 'ログインが必要です' + 'ログイン / 新規登録' ボタン表示確認,HIGH
+US-127,global,infrastructure,stripe_test,開発者として Stripe テストモードの webhook を手動送信したとき purchases に正しく記録される,stripe trigger payment_intent.succeeded → DB insert 確認,/api/stripe/webhook,UNTESTED,Stripe CLI 必要,LOW
+US-128,tetris,game,prediction_card,テトリスユーザーとして 5ゲーム以上プレイ後 PredictionCard に次ゲームの予測スコアが表示される,TimesFM/回帰予測値 + p10/p90 信頼区間が表示,/apps/tetris,UNTESTED,5ゲーム以上プレイ + ブラウザ確認必要,MED
+US-129,global,infrastructure,learning_api_auth,未ログインユーザーとして /api/learning POST を直接呼んだとき 401 が返る,Supabase セッションなし → 401 Unauthorized,/api/learning,PASS,HTTP 401 確認 / /api/learning POST (未認証) → 401,HIGH
+US-130,global,infrastructure,predict_api,"開発者として /api/predict に POST {scores:[1,2,3,4,5],horizon:3} を送ったとき 予測配列が返る",forecast / trend / confidence / reachGoalIn / model を含むJSON / 200 OK,3,PASS,"正しいフィールド名は 'scores'。scores で動作確認: {forecast:[...],trend:'flat',confidence:0.6,model:'timesfm'} → 200",horizon:3} を送ったとき 予測配列が返る,point_forecast / quantile_forecasts を含むJSON / 200 OK,/api/predict,UNTESTED,,MED

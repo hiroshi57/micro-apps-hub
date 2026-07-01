@@ -18,6 +18,7 @@
  */
 
 import Link from 'next/link';
+import { CheckoutButton } from '@/app/components/CheckoutButton';
 
 interface ProWallModalProps {
   slug: string;
@@ -95,15 +96,13 @@ export function ProWallModal({
         </ul>
 
         {/* CTA ボタン */}
-        <form action="/api/stripe/checkout" method="POST">
-          <input type="hidden" name="appSlug" value={slug} />
-          <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-pro-600 to-pro-500 hover:from-pro-500 hover:to-pro-400 text-white font-bold py-4 rounded-2xl text-lg transition-all shadow-lg mb-3"
-          >
-            ¥{price.toLocaleString()} で Pro を購入（買い切り）
-          </button>
-        </form>
+        <div className="mb-3">
+          <CheckoutButton
+            appSlug={slug}
+            price={price}
+            className="w-full bg-gradient-to-r from-pro-600 to-pro-500 hover:from-pro-500 hover:to-pro-400 disabled:opacity-60 text-white font-bold py-4 rounded-2xl text-lg transition-all shadow-lg"
+          />
+        </div>
 
         <div className="flex items-center justify-between text-sm">
           {onClose && (
