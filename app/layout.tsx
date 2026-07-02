@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/react';
+import { CookieBanner } from '@/app/components/CookieBanner';
 
 const SITE_URL = 'https://micro-apps-hub-seven.vercel.app';
 
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
     siteName: 'MicroApps Hub',
     images: [
       {
-        url: '/api/og/tetris',   // デフォルト OG 画像 (テトリスカード)
+        url: '/api/og/tetris',
         width: 1200,
         height: 630,
         alt: 'MicroApps Hub',
@@ -34,6 +36,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ja" className="scroll-smooth">
       <body className="min-h-screen bg-gray-950">
         {children}
+        <CookieBanner />
+        <Analytics />
       </body>
     </html>
   );

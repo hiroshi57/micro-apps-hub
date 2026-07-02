@@ -95,7 +95,27 @@ export default function HubPage() {
 
       {/* Footer */}
       <footer className="border-t border-white/5 py-10 text-center text-gray-600 text-sm">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4">
+          <Link href="/legal/tokusho" className="hover:text-gray-400 transition-colors">
+            特定商取引法に基づく表記
+          </Link>
+          <Link href="/legal/privacy" className="hover:text-gray-400 transition-colors">
+            プライバシーポリシー
+          </Link>
+          <Link href="/legal/terms" className="hover:text-gray-400 transition-colors">
+            利用規約
+          </Link>
+          <a
+            href="mailto:hiroshi.takizawa@digitalidentity.co.jp"
+            className="hover:text-gray-400 transition-colors"
+          >
+            お問い合わせ
+          </a>
+        </div>
         <p>© 2026 MicroApps Hub — Powered by Next.js + Stripe + Supabase</p>
+        <p className="mt-1 text-xs text-gray-700">
+          決済処理: Stripe, Inc. ／ 認証・DB: Supabase, Inc.
+        </p>
       </footer>
     </main>
   );
