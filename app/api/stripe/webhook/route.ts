@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { recordPurchase } from '@/lib/purchases';
+import { sendPurchaseEmail } from '@/lib/email';
+import { getApp } from '@/lib/apps-config';
+import { createClient } from '@/lib/supabase/server';
 import Stripe from 'stripe';
 
-// Stripe SDK は Node.js ランタイムが必要（Edge では crypto 検証が動かない）。
-// App Router の Route Handler は req.text() で raw body を取得できるため、
-// Pages Router 時代の `export const config = { api: { bodyParser: false } }`
-// は不要（App Router では無効）。
 export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
@@ -32,6 +31,7 @@ export async function POST(req: NextRequest) {
 
     if (userId && appSlug) {
       try {
+        // 1. 購入記録を DB に保存
         await recordPurchase({
           userId,
           appSlug,
@@ -39,8 +39,28 @@ export async function POST(req: NextRequest) {
           amount: session.amount_total ?? 0,
         });
         console.log(`✅ 購入記録: ${appTitle ?? appSlug} (user: ${userId})`);
+
+        // 2. 購入完了メールを送信（失敗しても購入は成功扱い）
+        try {
+          const supabase = await createClient();
+          const { data: { user } } = await supabase.auth.admin.getUserById(userId);
+          const appConfig = getApp(appSlug);
+
+          if (user?.email && appConfig) {
+            await sendPurchaseEmail({
+              to: user.email,
+              appTitle: appTitle ?? appConfig.title,
+              appSlug,
+              appEmoji: appConfig.emoji,
+              amount: Math.round((session.amount_total ?? 0) / 1),
+              receiptUrl: session.url ?? undefined,
+            });
+          }
+        } catch (emailErr) {
+          // メール失敗は購入の成否に影響しない
+          console.error('購入メール送信失敗（購入自体は成功）:', emailErr);
+        }
       } catch (err) {
-        // 保存に失敗したら 500 を返し、Stripe にリトライさせる
         console.error('購入記録の保存に失敗:', err);
         return NextResponse.json({ error: 'Failed to record purchase' }, { status: 500 });
       }
