@@ -22,13 +22,13 @@ export default async function SeniorBrainProPage({
       <main className="min-h-screen bg-gradient-to-b from-green-950 to-gray-950 text-white flex items-center justify-center">
         <div className="text-center max-w-md p-8">
           <div className="text-7xl mb-4">🔒</div>
-          <h1 className="text-3xl font-bold mb-3">ログインが必要です</h1>
+          <h1 className="text-3xl font-bold mb-3">ログインが必要です<span className="block text-base text-gray-500 mt-1" lang="en">Login required</span></h1>
           <p className="text-gray-400 text-lg mb-8">Pro版を購入・利用するにはアカウントが必要です。</p>
           <Link
             href="/auth/login"
             className="bg-brand-500 hover:bg-brand-600 text-white font-bold px-10 py-4 rounded-full text-lg transition-colors"
           >
-            ログイン / 新規登録
+            ログイン・新規登録 / Log in · Sign up
           </Link>
         </div>
       </main>

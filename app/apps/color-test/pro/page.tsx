@@ -22,10 +22,10 @@ export default async function ColorTestProPage({
       <main className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
         <div className="text-center max-w-md p-8">
           <div className="text-6xl mb-4">🔒</div>
-          <h1 className="text-3xl font-bold mb-3">ログインが必要です</h1>
-          <p className="text-gray-400 mb-6">Pro版を購入・利用するにはアカウントが必要です。</p>
+          <h1 className="text-3xl font-bold mb-3">ログインが必要です<span className="block text-base text-gray-500 mt-1" lang="en">Login required</span></h1>
+          <p className="text-gray-400 mb-6">Pro版を購入・利用するにはアカウントが必要です。<span className="block text-sm text-gray-600 mt-1" lang="en">You need a (free) account to buy and use Pro.</span></p>
           <Link href="/auth/login" className="bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-3 rounded-full transition-colors">
-            ログイン / 新規登録
+            ログイン・新規登録 / Log in · Sign up
           </Link>
         </div>
       </main>
@@ -48,7 +48,7 @@ export default async function ColorTestProPage({
           </ul>
           <CheckoutButton appSlug="color-test" price={480} />
           <Link href="/apps/color-test" className="block mt-3 text-gray-500 text-sm hover:text-white transition-colors">
-            無料版に戻る
+            無料版に戻る / Back to free version
           </Link>
         </div>
       </main>
@@ -59,7 +59,7 @@ export default async function ColorTestProPage({
     <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center py-8 px-4">
       {justPurchased && (
         <div className="mb-4 bg-green-500/20 border border-green-500/30 text-green-300 px-4 py-2 rounded-full text-sm">
-          🎉 購入ありがとうございます！全機能が解放されました。
+          🎉 購入ありがとうございます！全機能が解放されました。 / Thank you — everything is unlocked!
         </div>
       )}
       <div className="mb-6 flex items-center gap-3">

@@ -79,6 +79,9 @@ export function ProWallModal({
           <div className="text-6xl mb-3">{emoji}</div>
           <h2 className="text-2xl font-bold text-white mb-2">{headline}</h2>
           <p className="text-gray-400">{subtext}</p>
+          <p className="text-gray-600 text-sm mt-1" lang="en">
+            One-time Pro purchase unlocks everything — international cards accepted.
+          </p>
         </div>
 
         {/* Pro 機能リスト */}
@@ -91,7 +94,7 @@ export function ProWallModal({
           ))}
           <li className="flex items-center gap-2 text-gray-300">
             <span className="text-pro-400 text-lg">★</span>
-            <span>永久利用・買い切り（サブスクなし）</span>
+            <span>永久利用・買い切り（サブスクなし）<span className="block text-xs text-gray-500" lang="en">Yours forever — one-time purchase, no subscription</span></span>
           </li>
         </ul>
 
@@ -110,7 +113,7 @@ export function ProWallModal({
               onClick={onClose}
               className="text-gray-600 hover:text-gray-400 transition-colors"
             >
-              明日また来る
+              明日また来る / Come back tomorrow
             </button>
           )}
           <Link href="/" className="text-gray-600 hover:text-gray-400 transition-colors ml-auto">

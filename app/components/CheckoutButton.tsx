@@ -60,7 +60,7 @@ export function CheckoutButton({
               処理中...
             </span>
           ) : (
-            label ?? `¥${price.toLocaleString()} で Pro を購入（買い切り）`
+            label ?? `¥${price.toLocaleString()} で Pro を購入（買い切り） / Buy Pro`
           )}
         </button>
       </form>

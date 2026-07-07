@@ -8,11 +8,11 @@ const CATEGORIES = ['all', 'game', 'tool', 'wellness', 'training'] as const;
 type Filter = typeof CATEGORIES[number];
 
 const filterLabel: Record<Filter, string> = {
-  all: '全て',
-  game: 'ゲーム',
-  tool: 'ツール',
-  wellness: 'ウェルネス',
-  training: 'トレーニング',
+  all: '全て / All',
+  game: 'ゲーム / Games',
+  tool: 'ツール / Tools',
+  wellness: 'ウェルネス / Wellness',
+  training: 'トレーニング / Training',
 };
 
 export default function HubPage() {
@@ -31,22 +31,26 @@ export default function HubPage() {
           <span className="text-white">Micro</span>
           <span className="bg-gradient-to-r from-brand-400 to-pro-400 bg-clip-text text-transparent">Apps</span>
         </h1>
-        <p className="text-gray-400 text-xl max-w-xl mx-auto mb-8">
+        <p className="text-gray-400 text-xl max-w-xl mx-auto mb-3">
           テトリス・将棋・脳トレなど全{APPS.length}本。<br />
           無料で試して、気に入ったら<span className="text-pro-400 font-semibold">買い切り Pro</span>へ。
+        </p>
+        <p className="text-gray-500 text-base max-w-xl mx-auto mb-8" lang="en">
+          {APPS.length} quick time-killer games &amp; tools — play free in your browser.<br />
+          One-time purchase unlocks Pro. International cards accepted.
         </p>
         <div className="flex gap-3 justify-center flex-wrap">
           <Link
             href="#apps"
             className="bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-3 rounded-full transition-colors"
           >
-            アプリを見る
+            アプリを見る / Browse apps
           </Link>
           <Link
             href="/auth/signup"
             className="border border-white/20 hover:border-white/40 text-white font-semibold px-8 py-3 rounded-full transition-colors"
           >
-            無料アカウント作成
+            無料アカウント作成 / Sign up free
           </Link>
         </div>
       </section>
@@ -55,9 +59,9 @@ export default function HubPage() {
       <section className="py-8 border-y border-white/5">
         <div className="max-w-5xl mx-auto px-4 grid grid-cols-3 gap-4 text-center">
           {[
-            { label: 'アプリ数', value: `${APPS.length}本` },
-            { label: '最安値', value: '¥380〜' },
-            { label: '買い切り', value: '永久利用' },
+            { label: 'アプリ数 / Apps', value: `${APPS.length}本` },
+            { label: '最安値 / From', value: '¥380〜' },
+            { label: '買い切り / One-time', value: '永久利用' },
           ].map(s => (
             <div key={s.label}>
               <p className="text-3xl font-extrabold text-white">{s.value}</p>
@@ -131,12 +135,18 @@ function AppCard({ app }: { app: AppConfig }) {
 
       <div className="p-4">
         <div className="flex items-center gap-2 mb-1">
-          <h2 className="font-bold text-white text-lg">{app.title}</h2>
+          <h2 className="font-bold text-white text-lg">
+            {app.title}
+            {app.titleEn !== app.title && (
+              <span className="ml-2 text-xs font-medium text-gray-500" lang="en">{app.titleEn}</span>
+            )}
+          </h2>
           <span className="text-xs bg-white/10 text-gray-400 px-2 py-0.5 rounded-full">
             {getCategoryLabel(app.category)}
           </span>
         </div>
-        <p className="text-gray-500 text-sm mb-4">{app.description}</p>
+        <p className="text-gray-500 text-sm mb-1">{app.description}</p>
+        <p className="text-gray-600 text-xs mb-4" lang="en">{app.descriptionEn}</p>
 
         {/* Free features preview */}
         <ul className="text-xs text-gray-400 mb-4 space-y-1">
@@ -156,7 +166,7 @@ function AppCard({ app }: { app: AppConfig }) {
             href={`/apps/${app.slug}`}
             className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white text-sm font-medium py-2 rounded-xl transition-colors"
           >
-            無料で遊ぶ
+            無料で遊ぶ<span className="block text-[10px] text-gray-400" lang="en">Play free</span>
           </Link>
           <Link
             href={`/apps/${app.slug}/pro`}
