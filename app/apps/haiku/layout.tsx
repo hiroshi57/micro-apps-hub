@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { AppJsonLd } from '@/app/components/JsonLd';
+import { getApp } from '@/lib/apps-config';
 
 export const metadata: Metadata = {
   title: '俳句ジェネレーター | MicroApps Hub',
@@ -12,5 +14,19 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+  const app = getApp('haiku');
+  if (!app) return <>{children}</>;
+  return (
+    <>
+      <AppJsonLd
+        appTitle={app.title}
+        appSlug={app.slug}
+        description={app.description}
+        price={app.price}
+        emoji={app.emoji}
+        category={app.category}
+      />
+      {children}
+    </>
+  );
 }
