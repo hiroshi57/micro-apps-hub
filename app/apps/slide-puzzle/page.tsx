@@ -1,15 +1,26 @@
 'use client';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 
 function newPuzzle(n:number){ const a=Array.from({length:n*n},(_,i)=>i).sort(()=>Math.random()-.5); return a; }
+function orderedTiles(n:number){ return Array.from({length:n*n},(_,i)=>i); }
 function isSolved(tiles:number[]){ return tiles.every((v,i)=>v===i); }
 
 export default function SlidePuzzlePage(){
   const [size,setSize]=useState(4);
-  const [tiles,setTiles]=useState(()=>newPuzzle(4));
+  // 2026-09-03: newPuzzle()内のMath.random()をuseState初期化関数の中で
+  // 直接呼ぶとSSR時とクライアント初回レンダー時で並びが食い違い、React
+  // hydrationエラー（#418）が発生していた（本番で実確認）。初期値は
+  // サーバー・クライアントで一致する整列済み配列にし、マウント後の
+  // useEffectでシャッフルする。
+  const [tiles,setTiles]=useState<number[]>(()=>orderedTiles(4));
   const [moves,setMoves]=useState(0);
   const [won,setWon]=useState(false);
+
+  useEffect(() => {
+    setTiles(newPuzzle(4));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const move=(idx:number)=>{
     if(won) return;

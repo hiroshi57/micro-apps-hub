@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 
 // ============================================================
@@ -79,12 +79,22 @@ function generatePuzzle(clues: number): Grid {
 const DIFFICULTY = { easy: 36, medium: 28 }; // 無料版は easy/medium
 
 export default function SudokuPage() {
-  const [grid, setGrid] = useState<Grid>(() => generatePuzzle(DIFFICULTY.easy));
+  // 2026-09-03: generatePuzzle()内でMath.random()を使うため、useState初期化
+  // 関数の中で直接呼ぶとSSR時とクライアント初回レンダー時で異なる盤面が
+  // 生成され、React hydrationエラー（#418）が発生していた（本番で実確認）。
+  // 初期値はサーバー・クライアントで一致する空盤面にし、マウント後の
+  // useEffectでランダム生成する（クライアントのみで実行されるため一致する）。
+  const [grid, setGrid] = useState<Grid>(() => emptyGrid());
   const [selected, setSelected] = useState<[number, number] | null>(null);
   const [difficulty, setDifficulty] = useState<'easy' | 'medium'>('easy');
   const [mistakes, setMistakes] = useState(0);
   const [showProWall, setShowProWall] = useState(false);
   const [solved, setSolved] = useState(false);
+
+  useEffect(() => {
+    setGrid(generatePuzzle(DIFFICULTY.easy));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const newGame = useCallback((diff: 'easy' | 'medium') => {
     setDifficulty(diff);
